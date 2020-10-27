@@ -9,6 +9,11 @@
   margin-top: 200px;
   height: 250px;
   width: 250px;
+  transition: transform 0.2s;
+}
+
+.login > img:hover {
+  transform: scale(1.25);
 }
 
 .login > a {
@@ -27,4 +32,8 @@
   transition: color 200ms ease-out;
   cursor: pointer;
   color: white;
+}
+
+.login > p {
+  color: green;
 }
