@@ -11,6 +11,9 @@
 # production
 /build
 
+#spotify
+/src/helpers/spotify
+
 # misc
 .DS_Store
 .env.local

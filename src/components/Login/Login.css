@@ -1,0 +1,30 @@
+.login {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.login > img {
+  margin-top: 200px;
+  height: 250px;
+  width: 250px;
+}
+
+.login > a {
+  padding: 20px;
+  border-radius: 99px;
+  background-color: var(--music-background-color);
+  font-weight: 800;
+  text-decoration: none;
+  margin-bottom: 100px;
+  font-size: small;
+  color: black;
+}
+
+.login > a:hover {
+  background-color: var(--music-color);
+  transition: color 200ms ease-out;
+  cursor: pointer;
+  color: white;
+}
