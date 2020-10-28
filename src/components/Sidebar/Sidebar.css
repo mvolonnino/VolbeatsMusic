@@ -1,0 +1,40 @@
+.sidebar {
+  height: 90vh;
+  flex: 0.2;
+  background-color: black;
+  color: white;
+  min-width: 230px;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-y: scroll;
+}
+
+/* hide scrollbar for Chrome, Safari, Opera */
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE, edge, Firefox */
+.sidebar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar_logo {
+  margin-right: auto;
+  padding: 10px;
+  object-fit: contain;
+  height: 125px;
+}
+
+.playlists {
+  margin-left: 9px;
+  padding: 5px;
+  font-weight: 800;
+}
+
+.sidebar > hr {
+  border: 1px solid #282828;
+  width: 90%;
+  margin: 10px auto;
+}
