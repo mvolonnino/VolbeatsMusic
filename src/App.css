@@ -2,3 +2,13 @@ body {
   --music-color: #ff6ec0;
   --music-background-color: #6eeeff;
 }
+
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+/* hide scrollbar for IE, edge, Firefox */
+.body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

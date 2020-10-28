@@ -1,0 +1,26 @@
+.songs {
+  margin: 20px -30px;
+}
+
+.songs_icons {
+  display: flex;
+  align-items: center;
+}
+
+.songs_icons > .MuiSvgIcon-root {
+  margin-right: 20px;
+}
+
+.play_button {
+  font-size: 60px !important;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: var(--music-color) !important;
+}
+
+.play_button:hover {
+  color: var(--music-background-color) !important;
+  transition: transform 100ms ease-in;
+  transform: scale(1.08);
+}

@@ -1,0 +1,33 @@
+.banner {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.banner_text {
+  flex: 1;
+}
+
+.banner_text > h2 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.banner_text > p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.banner > img {
+  height: 20vh;
+  margin: 0 20px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.625);
+}
+
+.banner_small > small {
+  font-size: 14px;
+}
+
+.banner_small > strong {
+  font-weight: 600;
+}
