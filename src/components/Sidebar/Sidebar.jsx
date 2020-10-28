@@ -10,7 +10,7 @@ import SearchTwoToneIcon from "@material-ui/icons/SearchTwoTone";
 import LibraryMusicTwoToneIcon from "@material-ui/icons/LibraryMusicTwoTone";
 
 function Sidebar() {
-  const [{ playlists }, dispatch] = useDataLayerValue();
+  const [{ playlists }] = useDataLayerValue();
 
   return (
     <div className="sidebar">

@@ -1,6 +1,4 @@
 import React from "react";
-
-import "./Footer.css";
 import PlayCircleFilledTwoToneIcon from "@material-ui/icons/PlayCircleFilledTwoTone";
 import SkipNextTwoToneIcon from "@material-ui/icons/SkipNextTwoTone";
 import SkipPreviousTwoToneIcon from "@material-ui/icons/SkipPreviousTwoTone";
@@ -10,6 +8,8 @@ import { Grid, Slider } from "@material-ui/core";
 import QueueMusicTwoToneIcon from "@material-ui/icons/QueueMusicTwoTone";
 import VolumeDownTwoToneIcon from "@material-ui/icons/VolumeDownTwoTone";
 import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
+
+import "./Footer.css";
 
 function Footer() {
   return (
