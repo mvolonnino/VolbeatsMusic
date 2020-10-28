@@ -15,14 +15,26 @@
   min-width: 80px;
 }
 
+.header_left:hover {
+  color: var(--music-color);
+}
+
 .header_left > input {
   border: none;
   width: 100%;
+  outline: none;
+}
+
+.header_left > input:active,
+input:focus {
+  border-color: transparent;
+  border-bottom: 2px solid var(--music-color);
 }
 
 .header_right {
   display: flex;
   align-items: center;
+  transition: transform 200ms;
 }
 
 .header_right > h4 {
@@ -30,6 +42,5 @@
 }
 
 .header_right:hover {
-  transition: transform 200ms ease-in-out;
   transform: scale(1.08);
 }

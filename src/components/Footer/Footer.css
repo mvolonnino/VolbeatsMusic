@@ -43,10 +43,10 @@
   height: 60px;
   width: 60px;
   margin-right: 20px;
+  transition: transform 200ms ease-in-out;
 }
 
 .footer_albumLogo:hover {
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
@@ -57,52 +57,53 @@
 .footer_songInfo > p {
   font-size: 12px;
 }
+.footer_shuffle,
+.footer_prev,
+.footer_play,
+.footer_next,
+.footer_queue,
+.footer_volDown,
+.footer_volUp {
+  transition: transform 200ms ease-in-out;
+}
 
 .footer_shuffle:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_prev:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_play:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_next:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_repeat:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_queue:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_volDown:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
 .footer_volUp:hover {
   color: var(--music-color);
-  transition: transform 200ms ease-in-out;
   transform: scale(1.25) !important;
 }
 
