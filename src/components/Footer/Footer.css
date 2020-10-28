@@ -1,8 +1,44 @@
 .footer {
   position: fixed;
+  display: flex;
+  justify-content: space-between;
   bottom: 0;
   height: 65px;
-  width: 100%;
+  width: 97%;
   background-color: rgb(61, 60, 60);
   padding: 20px;
+}
+
+.footer_left {
+  display: flex;
+  align-items: center;
+  flex: 0.3;
+  color: var(--music-background-color);
+  max-width: 300px;
+}
+
+.footer_center {
+  flex: 0.4;
+  padding: 0 100px;
+  color: var(--music-background-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+}
+
+.footer_right {
+  flex: 0.3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 15px;
+  color: var(--music-background-color);
+}
+
+.footer_albumLogo {
+  object-fit: contain;
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
 }
