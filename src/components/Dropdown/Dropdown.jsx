@@ -9,14 +9,19 @@ import "./Dropdown.css";
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu() {
-  const [{ user }] = useDataLayerValue();
+  const [{ user }, dispatch] = useDataLayerValue();
   const options = {
     UserID: user?.id,
     Followers: user?.followers.total,
-    Logout: "Logout",
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,6 +72,7 @@ export default function LongMenu() {
             {`${key[0]}: ${key[1]}`}
           </MenuItem>
         ))}
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </div>
   );

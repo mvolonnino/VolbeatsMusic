@@ -18,7 +18,7 @@ function Songs() {
       </div>
       {/* List of songs */}
       {discover_weekly?.tracks.items.map((item, i) => (
-        <SongRow track={item.track} index={i} />
+        <SongRow track={item.track} index={i} key={i} />
       ))}
     </div>
   );

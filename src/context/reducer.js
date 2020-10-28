@@ -32,6 +32,10 @@ const reducer = (state, action) => {
         ...state,
         discover_weekly: action.discover_weekly,
       };
+    case "LOGOUT":
+      return {
+        token: null,
+      };
     default:
       return state;
   }

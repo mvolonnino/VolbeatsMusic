@@ -14,6 +14,8 @@
   opacity: 0.8;
   border-radius: 10px;
   color: gray;
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.08);
 }
 
 .song_rowInfo {
@@ -32,6 +34,11 @@
 .album_art {
   object-fit: contain;
   height: 40px;
+}
+
+.album_art:hover {
+  transition: transform 100ms ease-in-out;
+  transform: scale(1.08);
 }
 
 .index {
