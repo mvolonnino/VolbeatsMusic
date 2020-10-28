@@ -44,3 +44,68 @@
   width: 60px;
   margin-right: 20px;
 }
+
+.footer_albumLogo:hover {
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_songInfo > h4 {
+  margin-bottom: 5px;
+}
+
+.footer_songInfo > p {
+  font-size: 12px;
+}
+
+.footer_shuffle:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_prev:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_play:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_next:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_repeat:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_queue:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_volDown:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_volUp:hover {
+  color: var(--music-color);
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.25) !important;
+}
+
+.footer_right * .MuiSlider-root {
+  color: var(--music-color) !important;
+}

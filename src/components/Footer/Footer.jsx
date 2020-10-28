@@ -35,13 +35,13 @@ function Footer() {
       <div className="footer_right">
         <Grid container spacing={2}>
           <Grid item>
-            <QueueMusicTwoToneIcon />
+            <QueueMusicTwoToneIcon className="footer_queue" />
           </Grid>
           <Grid item>
-            <VolumeDownTwoToneIcon />
+            <VolumeDownTwoToneIcon className="footer_volDown" />
           </Grid>
           <Grid item>
-            <VolumeUpTwoToneIcon />
+            <VolumeUpTwoToneIcon className="footer_volUp" />
           </Grid>
           <Grid item xs>
             <Slider aria-labelledby="continuous-slider" />

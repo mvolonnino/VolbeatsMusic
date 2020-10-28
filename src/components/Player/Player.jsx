@@ -6,7 +6,6 @@ import Body from "../Body/Body";
 import Footer from "../Footer/Footer";
 
 function Player({ spotify }) {
-  console.log("Player", { spotify });
   return (
     <div className="player">
       <div className="player_body">
