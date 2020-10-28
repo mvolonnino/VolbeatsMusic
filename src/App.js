@@ -48,7 +48,7 @@ function App() {
         });
       });
     }
-  }, []);
+  }, [dispatch]);
 
   console.log("🔑 | 👩‍💻", { token, user });
   console.log("PLAYLISTS", { playlists });
