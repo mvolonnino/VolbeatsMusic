@@ -1,0 +1,40 @@
+.song_row {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  color: white;
+}
+
+.song_row:hover {
+  cursor: pointer;
+  background-color: var(--music-background-color);
+  opacity: 0.8;
+  border-radius: 10px;
+  color: gray;
+}
+
+.song_rowInfo {
+  margin-left: 5px;
+}
+
+.song_rowInfo > h1 {
+  font-size: 16px;
+}
+
+.song_rowInfo > p {
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.album_art {
+  object-fit: contain;
+  height: 40px;
+}
+
+.index {
+  margin-left: 5px;
+  margin-right: 10px;
+}

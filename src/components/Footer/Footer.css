@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  height: 65px;
-  width: 97%;
+  height: 5vh;
+  width: 100%;
   background-color: rgb(23, 23, 23);
   padding: 20px;
 }
@@ -32,8 +32,8 @@
   flex: 0.3;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-right: 15px;
+  justify-content: space-evenly;
+  margin-right: 50px;
   color: var(--music-background-color);
   cursor: pointer;
 }

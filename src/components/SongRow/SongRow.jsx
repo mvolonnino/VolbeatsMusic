@@ -2,10 +2,15 @@ import React from "react";
 
 import "./SongRow.css";
 
-function SongRow({ track }) {
+function SongRow({ track, index }) {
   return (
     <div className="song_row">
-      <img src={track.album.images[2].url} alt={track.album.name} />
+      <p className="index">{index + 1}</p>
+      <img
+        className="album_art"
+        src={track.album.images[0].url}
+        alt={track.album.name}
+      />
       <div className="song_rowInfo">
         <h1>{track.name}</h1>
         <p>

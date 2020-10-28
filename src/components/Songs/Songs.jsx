@@ -17,8 +17,8 @@ function Songs() {
         <MoreHorizIcon className="more" />
       </div>
       {/* List of songs */}
-      {discover_weekly?.tracks.items.map((item) => (
-        <SongRow track={item.track} />
+      {discover_weekly?.tracks.items.map((item, i) => (
+        <SongRow track={item.track} index={i} />
       ))}
     </div>
   );
