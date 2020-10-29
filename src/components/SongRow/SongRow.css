@@ -49,3 +49,13 @@
   margin-left: 5px;
   margin-right: 10px;
 }
+
+.hidden {
+  display: none;
+}
+
+.play_icon {
+  display: block;
+  margin-left: auto;
+  color: var(--music-color) !important;
+}

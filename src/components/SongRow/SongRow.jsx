@@ -2,6 +2,7 @@ import React from "react";
 
 import "./SongRow.css";
 import { useDataLayerValue } from "../../context/DataLayer";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 
 function SongRow({ track, index }) {
   const [{ song }, dispatch] = useDataLayerValue();
@@ -35,6 +36,11 @@ function SongRow({ track, index }) {
           {track?.artists?.map((artist) => artist.name).join(", ")} -{" "}
           {track?.album?.name}
         </p>
+      </div>
+      <div
+        className={`hidden ${song?.track?.name === track.name && "play_icon"}`}
+      >
+        <PauseCircleOutlineIcon />
       </div>
     </div>
   );
