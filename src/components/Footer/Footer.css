@@ -111,3 +111,11 @@
 .footer_right * .MuiSlider-root {
   color: var(--music-color) !important;
 }
+
+.none {
+  color: darkgray;
+}
+
+.no_song {
+  opacity: 50%;
+}

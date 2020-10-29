@@ -45,17 +45,21 @@ function Footer({ spotify }) {
   return (
     <div className="footer">
       <div className="footer_left">
-        <img
-          className="footer_albumLogo"
-          src={song?.track?.album?.images[0].url}
-          alt={song?.track?.album?.name}
-        />
+        {song && (
+          <img
+            className="footer_albumLogo"
+            src={song?.track?.album?.images[0].url}
+            alt={song?.track?.album?.name}
+          />
+        )}
+
         <div className="footer_songInfo">
+          {!song && <h5 className="none">No Song Selected</h5>}
           <h5>{song?.track?.name}</h5>
           <p>{song?.track?.artists?.map((artist) => artist.name).join(", ")}</p>
         </div>
       </div>
-      <div className="footer_center">
+      <div className={`footer_center ${!song && "no_song"}`}>
         <ShuffleTwoToneIcon className="footer_shuffle" />
         <SkipPreviousTwoToneIcon className="footer_prev" onClick={prevSong} />
         <PlayCircleFilledTwoToneIcon className="footer_play" fontSize="large" />
