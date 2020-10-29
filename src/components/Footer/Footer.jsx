@@ -8,6 +8,7 @@ import { Grid, Slider } from "@material-ui/core";
 import QueueMusicTwoToneIcon from "@material-ui/icons/QueueMusicTwoTone";
 import VolumeDownTwoToneIcon from "@material-ui/icons/VolumeDownTwoTone";
 import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
+import PauseCircleFilledTwoToneIcon from "@material-ui/icons/PauseCircleFilledTwoTone";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
@@ -69,7 +70,17 @@ function Footer({ spotify }) {
           className={`footer_prev ${song?.index === 0 && "no_song"}`}
           onClick={prevSong}
         />
-        <PlayCircleFilledTwoToneIcon className="footer_play" fontSize="large" />
+        {song ? (
+          <PauseCircleFilledTwoToneIcon
+            className="footer_play"
+            fontSize="large"
+          />
+        ) : (
+          <PlayCircleFilledTwoToneIcon
+            className="footer_play"
+            fontSize="large"
+          />
+        )}
         <SkipNextTwoToneIcon
           className={`footer_next ${
             song?.index === discover_weekly?.tracks?.total - 1 && "no_song"

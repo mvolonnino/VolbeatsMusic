@@ -17,6 +17,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   color: var(--music-color) !important;
+  cursor: pointer;
 }
 
 .play_button:hover {
