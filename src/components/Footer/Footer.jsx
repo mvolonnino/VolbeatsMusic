@@ -65,9 +65,17 @@ function Footer({ spotify }) {
       </div>
       <div className={`footer_center ${!song && "no_song"}`}>
         <ShuffleTwoToneIcon className="footer_shuffle" />
-        <SkipPreviousTwoToneIcon className="footer_prev" onClick={prevSong} />
+        <SkipPreviousTwoToneIcon
+          className={`footer_prev ${song?.index === 0 && "no_song"}`}
+          onClick={prevSong}
+        />
         <PlayCircleFilledTwoToneIcon className="footer_play" fontSize="large" />
-        <SkipNextTwoToneIcon className="footer_next" onClick={nextSong} />
+        <SkipNextTwoToneIcon
+          className={`footer_next ${
+            song?.index === discover_weekly?.tracks?.total - 1 && "no_song"
+          }`}
+          onClick={nextSong}
+        />
         <RepeatTwoToneIcon className="footer_repeat" />
       </div>
       <div className="footer_right">

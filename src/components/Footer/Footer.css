@@ -119,3 +119,7 @@
 .no_song {
   opacity: 50%;
 }
+
+.no_song:hover {
+  color: var(--music-background-color) !important;
+}
