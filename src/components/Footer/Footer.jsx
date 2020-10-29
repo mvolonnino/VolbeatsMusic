@@ -16,31 +16,35 @@ function Footer({ spotify }) {
   const [{ song, discover_weekly }, dispatch] = useDataLayerValue();
 
   const nextSong = () => {
-    dispatch({
-      type: "SET_SONG",
-      song: {
-        track: Object.assign(
-          ...discover_weekly?.tracks.items
-            .map((track) => track.track)
-            .filter((track, i) => i === song.index + 1)
-        ),
-        index: song.index + 1,
-      },
-    });
+    if (song.index < discover_weekly?.tracks?.total - 1) {
+      dispatch({
+        type: "SET_SONG",
+        song: {
+          track: Object.assign(
+            ...discover_weekly?.tracks?.items
+              .map((track) => track.track)
+              .filter((track, i) => i === song.index + 1)
+          ),
+          index: song.index + 1,
+        },
+      });
+    }
   };
 
   const prevSong = () => {
-    dispatch({
-      type: "SET_SONG",
-      song: {
-        track: Object.assign(
-          ...discover_weekly?.tracks.items
-            .map((track) => track.track)
-            .filter((track, i) => i === song.index - 1)
-        ),
-        index: song.index - 1,
-      },
-    });
+    if (song.index !== 0) {
+      dispatch({
+        type: "SET_SONG",
+        song: {
+          track: Object.assign(
+            ...discover_weekly?.tracks?.items
+              .map((track) => track.track)
+              .filter((track, i) => i === song.index - 1)
+          ),
+          index: song.index - 1,
+        },
+      });
+    }
   };
   return (
     <div className="footer">
