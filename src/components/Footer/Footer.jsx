@@ -10,19 +10,22 @@ import VolumeDownTwoToneIcon from "@material-ui/icons/VolumeDownTwoTone";
 import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
 
 import "./Footer.css";
+import { useDataLayerValue } from "../../context/DataLayer";
 
-function Footer() {
+function Footer({ spotify }) {
+  const [{ song }] = useDataLayerValue();
+
   return (
     <div className="footer">
       <div className="footer_left">
         <img
           className="footer_albumLogo"
-          src="https://vignette.wikia.nocookie.net/usher-raymond/images/d/d1/Confessionsalbum.jpg/revision/latest/scale-to-width-down/340?cb=20141021062312"
-          alt=""
+          src={song?.track?.album?.images[0].url}
+          alt={song?.track?.album?.name}
         />
         <div className="footer_songInfo">
-          <h4>Yeah!</h4>
-          <p>Usher</p>
+          <h5>{song?.track?.name}</h5>
+          <p>{song?.track?.artists?.map((artist) => artist.name).join(", ")}</p>
         </div>
       </div>
       <div className="footer_center">

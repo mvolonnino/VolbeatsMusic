@@ -50,13 +50,14 @@
   transform: scale(1.25) !important;
 }
 
-.footer_songInfo > h4 {
+.footer_songInfo > h5 {
   margin-bottom: 5px;
 }
 
 .footer_songInfo > p {
-  font-size: 12px;
+  font-size: 10px;
 }
+
 .footer_shuffle,
 .footer_prev,
 .footer_play,

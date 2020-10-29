@@ -24,3 +24,9 @@
   transition: transform 100ms ease-in;
   transform: scale(1.08);
 }
+
+.songs > hr {
+  margin: 0px 20px;
+  margin-bottom: 5px;
+  border: 1px solid darkgray;
+}
