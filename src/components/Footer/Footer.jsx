@@ -13,8 +13,35 @@ import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
-  const [{ song }] = useDataLayerValue();
+  const [{ song, discover_weekly }, dispatch] = useDataLayerValue();
 
+  const nextSong = () => {
+    dispatch({
+      type: "SET_SONG",
+      song: {
+        track: Object.assign(
+          ...discover_weekly?.tracks.items
+            .map((track) => track.track)
+            .filter((track, i) => i === song.index + 1)
+        ),
+        index: song.index + 1,
+      },
+    });
+  };
+
+  const prevSong = () => {
+    dispatch({
+      type: "SET_SONG",
+      song: {
+        track: Object.assign(
+          ...discover_weekly?.tracks.items
+            .map((track) => track.track)
+            .filter((track, i) => i === song.index - 1)
+        ),
+        index: song.index - 1,
+      },
+    });
+  };
   return (
     <div className="footer">
       <div className="footer_left">
@@ -30,9 +57,9 @@ function Footer({ spotify }) {
       </div>
       <div className="footer_center">
         <ShuffleTwoToneIcon className="footer_shuffle" />
-        <SkipPreviousTwoToneIcon className="footer_prev" />
+        <SkipPreviousTwoToneIcon className="footer_prev" onClick={prevSong} />
         <PlayCircleFilledTwoToneIcon className="footer_play" fontSize="large" />
-        <SkipNextTwoToneIcon className="footer_next" />
+        <SkipNextTwoToneIcon className="footer_next" onClick={nextSong} />
         <RepeatTwoToneIcon className="footer_repeat" />
       </div>
       <div className="footer_right">
