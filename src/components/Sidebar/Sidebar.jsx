@@ -17,9 +17,17 @@ function Sidebar({ spotify }) {
       <img className="sidebar_logo" src={VMSidebarLogo} alt="Volbeats Music" />
 
       {/* SidebarOptions */}
-      <SidebarOption title="Home" Icon={HomeTwoToneIcon} />
-      <SidebarOption title="Search" Icon={SearchTwoToneIcon} />
-      <SidebarOption title="Your Library" Icon={LibraryMusicTwoToneIcon} />
+      <SidebarOption title="Home" Icon={HomeTwoToneIcon} spotify={spotify} />
+      <SidebarOption
+        title="Search"
+        Icon={SearchTwoToneIcon}
+        spotify={spotify}
+      />
+      <SidebarOption
+        title="Your Library"
+        Icon={LibraryMusicTwoToneIcon}
+        spotify={spotify}
+      />
       <br />
       <strong className="playlists">PLAYLISTS</strong>
       <hr />

@@ -7,13 +7,11 @@ import { useDataLayerValue } from "../../context/DataLayer";
 
 function Banner({ spotify }) {
   const [
-    { choosenPlaylist, token, offset, limit, userTracks },
+    { choosenPlaylist, offset, limit, userTracks },
     dispatch,
   ] = useDataLayerValue();
 
   const getNext50Songs = () => {
-    spotify.setAccessToken(token);
-
     spotify
       .getMySavedTracks({ offset: offset + limit, limit: limit })
       .then((tracks) => {

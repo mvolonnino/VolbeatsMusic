@@ -23,10 +23,32 @@ function SidebarOption({ spotify, uri, title, Icon }) {
   };
 
   const getUserTracks = () => {
-    dispatch({
-      type: "SET_CHOOSEN_PLAYLIST",
-      choosenPlaylist: userTracks,
-    });
+    console.log({ title });
+    console.log({ spotify });
+
+    switch (title) {
+      case "Your Library":
+        dispatch({
+          type: "SET_CHOOSEN_PLAYLIST",
+          choosenPlaylist: userTracks,
+        });
+        break;
+      case "Home":
+        spotify
+          .getPlaylist("37i9dQZEVXcDizIFCfhpad")
+          .then((response) => {
+            dispatch({
+              type: "SET_CHOOSEN_PLAYLIST",
+              choosenPlaylist: response,
+            });
+          })
+          .catch((err) => {
+            console.log({ err });
+          });
+        break;
+      default:
+        return;
+    }
   };
 
   return (
