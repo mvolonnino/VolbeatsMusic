@@ -58,7 +58,8 @@ function Banner({ spotify }) {
       type: "SET_CHOOSEN_PLAYLIST",
       choosenPlaylist: userTracks,
     });
-  }, [userTracks]);
+  }, [userTracks, dispatch]);
+
   return (
     <div className="banner">
       {choosenPlaylist?.images ? (
@@ -81,10 +82,13 @@ function Banner({ spotify }) {
         </>
       ) : (
         <>
+          <img
+            src="https://lh3.googleusercontent.com/proxy/rPpsf1eRxVxhX-Ow4XRjPNwpn2nsUCpcIQLrdOpdi4nMTacaNQTcCvciEuvoxhsAbEl_nsm0XLqIBTvwcjnSuVHX2rU7iw9xIwctgpIRXtb7OUZO_NQeOnpiZA"
+            alt="Music Logo"
+          />
           <div className="banner_text">
+            <strong>{`Showing 50 out of ${choosenPlaylist?.tracks?.total} songs`}</strong>
             <h2>YOUR LIBRARY</h2>
-            <p>Below is 50 of your saved songs</p>
-            <p>{`${choosenPlaylist?.tracks?.total} songs`}</p>
             <div className="arrow_icons">
               {offset > 0 ? (
                 <div className="last50">

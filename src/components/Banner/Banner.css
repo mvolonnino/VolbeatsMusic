@@ -25,7 +25,7 @@
 }
 
 .banner_small > small {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .banner_small > strong {
@@ -33,7 +33,7 @@
 }
 .arrow_icons {
   display: flex;
-  margin: 0px 5px;
+  margin-top: 5px;
 }
 
 .last50:hover {

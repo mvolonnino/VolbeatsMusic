@@ -3,6 +3,7 @@ export const initialState = {
   user: null,
   playlists: [],
   choosenPlaylist: null,
+  userTracks: null,
   playing: false,
   song: null,
   offset: 0,
@@ -52,7 +53,7 @@ const reducer = (state, action) => {
       };
     case "LOGOUT":
       return {
-        token: null,
+        initialState,
       };
     default:
       return state;
