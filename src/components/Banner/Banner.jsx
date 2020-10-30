@@ -86,9 +86,15 @@ function Banner({ spotify }) {
             <p>Below is 50 of your saved songs</p>
             <p>{`${choosenPlaylist?.tracks?.total} songs`}</p>
             <div className="arrow_icons">
-              <div className="last50">
-                <ArrowBackIosTwoToneIcon onClick={getLast50Songs} />
-              </div>
+              {offset > 0 ? (
+                <div className="last50">
+                  <ArrowBackIosTwoToneIcon onClick={getLast50Songs} />
+                </div>
+              ) : (
+                <div className="beginning">
+                  <ArrowBackIosTwoToneIcon />
+                </div>
+              )}
               <div className="next50">
                 <ArrowForwardIosTwoToneIcon onClick={getNext50Songs} />
               </div>

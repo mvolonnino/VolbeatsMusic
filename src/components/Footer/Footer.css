@@ -113,13 +113,14 @@
 }
 
 .none {
-  color: darkgray;
+  color: darkgray !important;
 }
 
 .no_song {
   opacity: 50%;
+  color: darkgray !important;
 }
 
-.no_song:hover {
+/* .no_song:hover {
   color: var(--music-background-color) !important;
-}
+} */
