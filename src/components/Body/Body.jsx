@@ -12,7 +12,7 @@ function Body({ spotify }) {
       <Header spotify={spotify} />
 
       {/* Banner */}
-      <Banner />
+      <Banner spotify={spotify} />
       {/* Songs */}
       <Songs />
     </div>

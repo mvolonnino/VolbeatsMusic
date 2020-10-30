@@ -8,10 +8,10 @@ import { useDataLayerValue } from "../../context/DataLayer";
 import SongRow from "../SongRow/SongRow";
 
 function Songs() {
-  const [{ discover_weekly, song }, dispatch] = useDataLayerValue();
+  const [{ choosenPlaylist, song }, dispatch] = useDataLayerValue();
 
   const setShuffleSong = () => {
-    var songs = discover_weekly?.tracks.items.map((item) => item);
+    var songs = choosenPlaylist?.tracks.items.map((item) => item);
     console.log(songs);
     var songIndex = Math.floor(Math.random() * songs.length);
     console.log(songIndex);
@@ -37,7 +37,7 @@ function Songs() {
       </div>
       <hr />
       {/* List of songs */}
-      {discover_weekly?.tracks.items.map((item, i) => (
+      {choosenPlaylist?.tracks.items.map((item, i) => (
         <SongRow track={item.track} index={i} key={i} />
       ))}
     </div>

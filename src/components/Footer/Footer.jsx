@@ -14,15 +14,15 @@ import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
-  const [{ song, discover_weekly }, dispatch] = useDataLayerValue();
+  const [{ song, choosenPlaylist }, dispatch] = useDataLayerValue();
 
   const nextSong = () => {
-    if (song.index < discover_weekly?.tracks?.total - 1) {
+    if (song.index < choosenPlaylist?.tracks?.total - 1) {
       dispatch({
         type: "SET_SONG",
         song: {
           track: Object.assign(
-            ...discover_weekly?.tracks?.items
+            ...choosenPlaylist?.tracks?.items
               .map((track) => track.track)
               .filter((track, i) => i === song.index + 1)
           ),
@@ -38,7 +38,7 @@ function Footer({ spotify }) {
         type: "SET_SONG",
         song: {
           track: Object.assign(
-            ...discover_weekly?.tracks?.items
+            ...choosenPlaylist?.tracks?.items
               .map((track) => track.track)
               .filter((track, i) => i === song.index - 1)
           ),
@@ -83,7 +83,7 @@ function Footer({ spotify }) {
         )}
         <SkipNextTwoToneIcon
           className={`footer_next ${
-            song?.index === discover_weekly?.tracks?.total - 1 && "no_song"
+            song?.index === choosenPlaylist?.tracks?.total - 1 && "no_song"
           }`}
           onClick={nextSong}
         />

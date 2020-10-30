@@ -31,3 +31,29 @@
 .banner_small > strong {
   font-weight: 600;
 }
+.arrow_icons {
+  display: flex;
+  margin: 0px 5px;
+}
+
+.last50 {
+  margin-right: 5px;
+}
+
+.last50:hover {
+  color: var(--music-color) !important;
+  cursor: pointer;
+  transition: trasform 200ms ease-in-out;
+  transform: scale(1.08);
+}
+
+.next50 {
+  margin-right: 5px;
+}
+
+.next50:hover {
+  color: var(--music-color) !important;
+  cursor: pointer;
+  transition: trasform 200ms ease-in-out;
+  transform: scale(1.08);
+}

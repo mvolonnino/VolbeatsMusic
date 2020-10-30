@@ -10,7 +10,7 @@ const spotify = new SpotifyWebApi();
 
 function App() {
   const [
-    { user, token, playlists, discover_weekly },
+    { user, token, playlists, choosenPlaylist, userTracks, offset, limit },
     dispatch,
   ] = useDataLayerValue();
 
@@ -28,32 +28,67 @@ function App() {
 
       spotify.setAccessToken(_token);
 
-      spotify.getMe().then((user) => {
-        dispatch({
-          type: "SET_USER",
-          user: user,
+      spotify
+        .getMe()
+        .then((user) => {
+          dispatch({
+            type: "SET_USER",
+            user: user,
+          });
+        })
+        .catch((err) => {
+          console.log({ err });
         });
-      });
 
-      spotify.getUserPlaylists().then((playlists) => {
-        dispatch({
-          type: "SET_PLAYLISTS",
-          playlists: playlists,
+      spotify
+        .getMySavedTracks({ limit: limit, offset: offset })
+        .then((tracks) => {
+          dispatch({
+            type: "SET_USER_TRACKS",
+            userTracks: {
+              tracks: tracks,
+            },
+          });
+          dispatch({
+            type: "SET_OFFSET",
+            offset: offset + limit,
+          });
+        })
+        .catch((err) => {
+          console.log({ err });
         });
-      });
 
-      spotify.getPlaylist("37i9dQZEVXcDizIFCfhpad").then((response) => {
-        dispatch({
-          type: "SET_DISCOVER_WEEKLY",
-          discover_weekly: response,
+      spotify
+        .getUserPlaylists()
+        .then((playlists) => {
+          dispatch({
+            type: "SET_PLAYLISTS",
+            playlists: playlists,
+          });
+        })
+        .catch((err) => {
+          console.log({ err });
         });
-      });
+
+      spotify
+        .getPlaylist("37i9dQZEVXcDizIFCfhpad")
+        .then((response) => {
+          dispatch({
+            type: "SET_CHOOSEN_PLAYLIST",
+            choosenPlaylist: response,
+          });
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
     }
-  }, [dispatch]);
+  }, [dispatch, limit, offset]);
 
   console.log("🔑 | 👩‍💻", { token, user });
+  console.log("USER TRACKS", { userTracks });
   console.log("PLAYLISTS", { playlists });
-  console.log("DISCOVER WEEKLY", { discover_weekly });
+  console.log("CHOOSENPLAYLIST", { choosenPlaylist });
+  console.log("OFFSET", { offset });
 
   return (
     <div className="app">

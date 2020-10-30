@@ -22,7 +22,7 @@ function SongRow({ track, index }) {
       <p className="index">{index + 1}</p>
       <img
         className="album_art"
-        src={track?.album?.images[0].url}
+        src={track?.album?.images[0]?.url}
         alt={track?.album?.name}
       />
       <div

@@ -2,8 +2,11 @@ export const initialState = {
   token: null,
   user: null,
   playlists: [],
+  choosenPlaylist: null,
   playing: false,
   song: null,
+  offset: 0,
+  limit: 50,
 };
 
 // this takes state of DataLayer and action. Action is like 'setUser, setPlaylists, etc'
@@ -27,15 +30,25 @@ const reducer = (state, action) => {
         ...state,
         playlists: action.playlists,
       };
-    case "SET_DISCOVER_WEEKLY":
+    case "SET_CHOOSEN_PLAYLIST":
       return {
         ...state,
-        discover_weekly: action.discover_weekly,
+        choosenPlaylist: action.choosenPlaylist,
       };
     case "SET_SONG":
       return {
         ...state,
         song: action.song,
+      };
+    case "SET_USER_TRACKS":
+      return {
+        ...state,
+        userTracks: action.userTracks,
+      };
+    case "SET_OFFSET":
+      return {
+        ...state,
+        offset: action.offset,
       };
     case "LOGOUT":
       return {

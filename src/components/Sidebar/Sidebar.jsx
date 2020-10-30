@@ -9,7 +9,7 @@ import HomeTwoToneIcon from "@material-ui/icons/HomeTwoTone";
 import SearchTwoToneIcon from "@material-ui/icons/SearchTwoTone";
 import LibraryMusicTwoToneIcon from "@material-ui/icons/LibraryMusicTwoTone";
 
-function Sidebar() {
+function Sidebar({ spotify }) {
   const [{ playlists }] = useDataLayerValue();
 
   return (
@@ -24,7 +24,12 @@ function Sidebar() {
       <strong className="playlists">PLAYLISTS</strong>
       <hr />
       {playlists?.items?.map((playlist, i) => (
-        <SidebarOption title={playlist.name} key={i} />
+        <SidebarOption
+          spotify={spotify}
+          uri={playlist.uri}
+          title={playlist.name}
+          key={i}
+        />
       ))}
     </div>
   );
