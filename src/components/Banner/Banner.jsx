@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTone";
 import ArrowBackIosTwoToneIcon from "@material-ui/icons/ArrowBackIosTwoTone";
 
@@ -15,7 +15,7 @@ function Banner({ spotify }) {
     spotify.setAccessToken(token);
 
     spotify
-      .getMySavedTracks({ offset: offset, limit: limit })
+      .getMySavedTracks({ offset: offset + limit, limit: limit })
       .then((tracks) => {
         dispatch({
           type: "SET_OFFSET",
@@ -26,10 +26,6 @@ function Banner({ spotify }) {
           userTracks: {
             tracks: tracks,
           },
-        });
-        dispatch({
-          type: "SET_CHOOSEN_PLAYLIST",
-          choosenPlaylist: userTracks,
         });
       })
       .catch((err) => {
@@ -51,16 +47,18 @@ function Banner({ spotify }) {
             tracks: tracks,
           },
         });
-        dispatch({
-          type: "SET_CHOOSEN_PLAYLIST",
-          choosenPlaylist: userTracks,
-        });
       })
       .catch((err) => {
         console.log({ err });
       });
   };
 
+  useEffect(() => {
+    dispatch({
+      type: "SET_CHOOSEN_PLAYLIST",
+      choosenPlaylist: userTracks,
+    });
+  }, [userTracks]);
   return (
     <div className="banner">
       {choosenPlaylist?.images ? (

@@ -49,10 +49,6 @@ function App() {
               tracks: tracks,
             },
           });
-          dispatch({
-            type: "SET_OFFSET",
-            offset: offset + limit,
-          });
         })
         .catch((err) => {
           console.log({ err });
