@@ -33,8 +33,9 @@ function SongRow({ track, index }) {
       >
         <h1>{track?.name}</h1>
         <p>
-          {track?.artists?.map((artist) => artist.name).join(", ")} -{" "}
-          {track?.album?.name}
+          {`${track?.artists?.map((artist) => artist.name).join(", ")} -
+          ${track?.album?.name} • `}
+          <small>({track?.album?.release_date})</small>
         </p>
       </div>
       <div

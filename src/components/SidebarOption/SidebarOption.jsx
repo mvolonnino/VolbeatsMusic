@@ -24,7 +24,6 @@ function SidebarOption({ spotify, uri, title, Icon }) {
 
   const getUserTracks = () => {
     console.log({ title });
-    console.log({ spotify });
 
     switch (title) {
       case "Your Library":

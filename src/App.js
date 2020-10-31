@@ -9,10 +9,7 @@ import { useDataLayerValue } from "./context/DataLayer";
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [
-    { user, token, playlists, choosenPlaylist, userTracks, offset, limit },
-    dispatch,
-  ] = useDataLayerValue();
+  const [{ token, offset, limit }, dispatch] = useDataLayerValue();
 
   useEffect(() => {
     const hash = getTokenFromUrl();
@@ -80,11 +77,11 @@ function App() {
     }
   }, [dispatch, limit, offset]);
 
-  console.log("🔑 | 👩‍💻", { token, user });
-  console.log("USER TRACKS", { userTracks });
-  console.log("PLAYLISTS", { playlists });
-  console.log("CHOOSENPLAYLIST", { choosenPlaylist });
-  console.log("OFFSET", { offset });
+  // console.log("🔑 | 👩‍💻", { token, user });
+  // console.log("USER TRACKS", { userTracks });
+  // console.log("PLAYLISTS", { playlists });
+  // console.log("CHOOSENPLAYLIST", { choosenPlaylist });
+  // console.log("OFFSET", { offset });
 
   return (
     <div className="app">
