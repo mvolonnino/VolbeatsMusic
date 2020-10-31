@@ -17,7 +17,7 @@ function Footer({ spotify }) {
   const [{ song, choosenPlaylist }, dispatch] = useDataLayerValue();
 
   const nextSong = () => {
-    if (song.index < choosenPlaylist?.tracks?.limit - 1) {
+    if (song.index < choosenPlaylist?.tracks?.items.length - 1) {
       dispatch({
         type: "SET_SONG",
         song: {
@@ -83,7 +83,8 @@ function Footer({ spotify }) {
         )}
         <SkipNextTwoToneIcon
           className={`footer_next ${
-            song?.index === choosenPlaylist?.tracks?.limit - 1 && "no_song"
+            song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
+            "no_song"
           }`}
           onClick={nextSong}
         />

@@ -3,6 +3,7 @@ import ArrowForwardIosTwoToneIcon from "@material-ui/icons/ArrowForwardIosTwoTon
 import ArrowBackIosTwoToneIcon from "@material-ui/icons/ArrowBackIosTwoTone";
 
 import "./Banner.css";
+import yourMusic from "../../img/yourMusic.png";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Banner({ spotify }) {
@@ -80,10 +81,7 @@ function Banner({ spotify }) {
         </>
       ) : (
         <>
-          <img
-            src="https://lh3.googleusercontent.com/proxy/rPpsf1eRxVxhX-Ow4XRjPNwpn2nsUCpcIQLrdOpdi4nMTacaNQTcCvciEuvoxhsAbEl_nsm0XLqIBTvwcjnSuVHX2rU7iw9xIwctgpIRXtb7OUZO_NQeOnpiZA"
-            alt="Music Logo"
-          />
+          <img src={yourMusic} alt="Music Logo" />
           <div className="banner_text">
             <strong>{`Showing 50 out of ${choosenPlaylist?.tracks?.total} songs`}</strong>
             <h2>YOUR LIBRARY</h2>

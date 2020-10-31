@@ -35,7 +35,7 @@ function SidebarOption({ spotify, uri, title, Icon }) {
         break;
       case "Home":
         spotify
-          .getPlaylist("37i9dQZEVXcDizIFCfhpad")
+          .getPlaylist("37i9dQZEVXcDizIFCfhpad", { limit: 30 })
           .then((response) => {
             dispatch({
               type: "SET_CHOOSEN_PLAYLIST",

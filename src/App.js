@@ -67,7 +67,7 @@ function App() {
         });
 
       spotify
-        .getPlaylist("37i9dQZEVXcDizIFCfhpad")
+        .getPlaylist("37i9dQZEVXcDizIFCfhpad", { limit: 30 })
         .then((response) => {
           dispatch({
             type: "SET_CHOOSEN_PLAYLIST",
