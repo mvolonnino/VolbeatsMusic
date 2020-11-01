@@ -83,7 +83,9 @@ function Banner({ spotify }) {
         <>
           <img src={yourMusic} alt="Music Logo" />
           <div className="banner_text">
-            <strong>{`Showing 50 out of ${choosenPlaylist?.tracks?.total} songs`}</strong>
+            <strong>{`Showing ${offset} - ${offset + limit} out of ${
+              choosenPlaylist?.tracks?.total
+            } songs`}</strong>
             <h2>YOUR LIBRARY</h2>
             <div className="arrow_icons">
               {offset > 0 ? (
