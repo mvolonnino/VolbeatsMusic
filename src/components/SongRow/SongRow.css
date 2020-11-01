@@ -15,7 +15,7 @@
   border-radius: 10px;
   color: var(--music-background-color);
   transition: transform 200ms ease-in-out;
-  transform: scale(1.08);
+  transform: scale(1.03);
 }
 
 .choosen_song {
