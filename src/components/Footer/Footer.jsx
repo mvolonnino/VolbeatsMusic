@@ -47,6 +47,7 @@ function Footer({ spotify }) {
       });
     }
   };
+
   return (
     <div className="footer">
       <div className="footer_left">
@@ -60,8 +61,21 @@ function Footer({ spotify }) {
 
         <div className="footer_songInfo">
           {!song && <h5 className="none">No Song Selected</h5>}
-          <h5>{song?.track?.name}</h5>
-          <p>{song?.track?.artists?.map((artist) => artist.name).join(", ")}</p>
+          {song?.track?.name.split(" ").length > 6 ? (
+            <h5>{`${song?.track?.name.split(" ", 6).join(" ")}...`}</h5>
+          ) : (
+            <h5>{song?.track?.name}</h5>
+          )}
+          {song?.track?.artists.length > 4 ? (
+            <p>{`${song?.track?.artists
+              ?.map((artist) => artist.name)
+              .join(", ")
+              .split(",", 2)}...`}</p>
+          ) : (
+            <p>
+              {song?.track?.artists?.map((artist) => artist.name).join(", ")}
+            </p>
+          )}
         </div>
       </div>
       <div className={`footer_center ${!song && "no_song"}`}>
