@@ -1,0 +1,7 @@
+.footer_devices {
+  color: var(--music-background-color) !important;
+}
+
+.footer_devices:hover {
+  color: var(--music-color) !important;
+}

@@ -5,47 +5,87 @@ import SkipPreviousTwoToneIcon from "@material-ui/icons/SkipPreviousTwoTone";
 import ShuffleTwoToneIcon from "@material-ui/icons/ShuffleTwoTone";
 import RepeatTwoToneIcon from "@material-ui/icons/RepeatTwoTone";
 import { Grid, Slider } from "@material-ui/core";
-import QueueMusicTwoToneIcon from "@material-ui/icons/QueueMusicTwoTone";
 import VolumeDownTwoToneIcon from "@material-ui/icons/VolumeDownTwoTone";
 import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
 import PauseCircleFilledTwoToneIcon from "@material-ui/icons/PauseCircleFilledTwoTone";
+import Devices from "../Devices/Devices";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
-  const [{ song, choosenPlaylist }, dispatch] = useDataLayerValue();
+  const [{ song, choosenPlaylist, playing }, dispatch] = useDataLayerValue();
 
-  const nextSong = () => {
-    if (song.index < choosenPlaylist?.tracks?.items.length - 1) {
+  const handlePlayPause = () => {
+    if (playing) {
+      spotify.pause();
       dispatch({
-        type: "SET_SONG",
-        song: {
-          track: Object.assign(
-            ...choosenPlaylist?.tracks?.items
-              .map((track) => track.track)
-              .filter((track, i) => i === song.index + 1)
-          ),
-          index: song.index + 1,
-        },
+        type: "SET_PLAYING",
+        playing: false,
+      });
+    } else {
+      spotify.play();
+      dispatch({
+        type: "SET_PLAYING",
+        playing: true,
       });
     }
   };
 
-  const prevSong = () => {
-    if (song.index !== 0) {
+  const nextSong = () => {
+    let upNextSong = {};
+    if (song.index < choosenPlaylist?.tracks?.items.length - 1) {
+      upNextSong = Object.assign(
+        ...choosenPlaylist?.tracks?.items
+          .map((track) => track.track)
+          .filter((track, i) => i === song.index + 1)
+      );
+      console.log({ upNextSong });
       dispatch({
         type: "SET_SONG",
         song: {
-          track: Object.assign(
-            ...choosenPlaylist?.tracks?.items
-              .map((track) => track.track)
-              .filter((track, i) => i === song.index - 1)
-          ),
+          track: upNextSong,
+          index: song.index + 1,
+        },
+      });
+    }
+    playThisSong(upNextSong);
+  };
+
+  const prevSong = () => {
+    let lastSong = {};
+    if (song.index !== 0) {
+      lastSong = Object.assign(
+        ...choosenPlaylist?.tracks?.items
+          .map((track) => track.track)
+          .filter((track, i) => i === song.index - 1)
+      );
+      dispatch({
+        type: "SET_SONG",
+        song: {
+          track: lastSong,
           index: song.index - 1,
         },
       });
     }
+    playThisSong(lastSong);
+  };
+
+  const playThisSong = (song) => {
+    console.log("SONG TO BE PLAYED", { song });
+    spotify
+      .play({
+        uris: [song?.uri],
+      })
+      .then((res) => {
+        spotify.getMyCurrentPlayingTrack().then((r) => {
+          console.log({ r });
+          dispatch({
+            type: "SET_PLAYING",
+            playing: true,
+          });
+        });
+      });
   };
 
   return (
@@ -84,15 +124,17 @@ function Footer({ spotify }) {
           className={`footer_prev ${song?.index === 0 && "no_song"}`}
           onClick={prevSong}
         />
-        {song ? (
+        {playing ? (
           <PauseCircleFilledTwoToneIcon
             className="footer_play"
             fontSize="large"
+            onClick={handlePlayPause}
           />
         ) : (
           <PlayCircleFilledTwoToneIcon
             className="footer_play"
             fontSize="large"
+            onClick={handlePlayPause}
           />
         )}
         <SkipNextTwoToneIcon
@@ -107,7 +149,7 @@ function Footer({ spotify }) {
       <div className="footer_right">
         <Grid container spacing={2}>
           <Grid item>
-            <QueueMusicTwoToneIcon className="footer_queue" />
+            <Devices />
           </Grid>
           <Grid item>
             <VolumeDownTwoToneIcon className="footer_volDown" />

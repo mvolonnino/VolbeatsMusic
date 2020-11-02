@@ -3,9 +3,18 @@ import React from "react";
 import "./SongRow.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 
-function SongRow({ track, index }) {
-  const [{ song }, dispatch] = useDataLayerValue();
+function SongRow({ track, index, playSong, spotify }) {
+  const [{ song, playing, myDevices }, dispatch] = useDataLayerValue();
+
+  const device = myDevices
+    .map((device) => device)
+    .filter(
+      (device) =>
+        device.name === "Web Player (Chrome)" || device.name === "MacBook Pro"
+    );
+
   const pickSong = () => {
     console.log(track);
     dispatch({
@@ -16,9 +25,28 @@ function SongRow({ track, index }) {
       },
     });
     console.log({ song });
+    if (device.is_active) {
+      playSong(track.id);
+    } else {
+      spotify
+        .play({
+          device_id: device[0]?.id,
+          uris: [track.uri],
+        })
+        .then((res) => {
+          spotify.getMyCurrentPlayingTrack().then((r) => {
+            console.log({ r });
+            dispatch({
+              type: "SET_PLAYING",
+              playing: true,
+            });
+          });
+        });
+    }
   };
+
   return (
-    <div className="song_row">
+    <div className="song_row" onClick={pickSong}>
       <p className="index">{index + 1}</p>
       <img
         className="album_art"
@@ -29,7 +57,6 @@ function SongRow({ track, index }) {
         className={`song_rowInfo ${
           song?.track?.name === track.name && "choosen_song"
         } `}
-        onClick={pickSong}
       >
         <h1>{track?.name}</h1>
         <p>
@@ -38,11 +65,23 @@ function SongRow({ track, index }) {
           <small>({track?.album?.release_date})</small>
         </p>
       </div>
-      <div
-        className={`hidden ${song?.track?.name === track.name && "play_icon"}`}
-      >
-        <PauseCircleOutlineIcon />
-      </div>
+      {playing ? (
+        <div
+          className={`hidden ${
+            song?.track?.name === track.name && "play_icon"
+          }`}
+        >
+          <PauseCircleOutlineIcon />
+        </div>
+      ) : (
+        <div
+          className={`hidden ${
+            song?.track?.name === track.name && "play_icon"
+          }`}
+        >
+          <PlayCircleOutlineIcon />
+        </div>
+      )}
     </div>
   );
 }

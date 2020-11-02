@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     const hash = getTokenFromUrl();
     const _token = hash.access_token;
-
     window.location.hash = "";
 
     if (_token) {
@@ -24,6 +23,15 @@ function App() {
       });
 
       spotify.setAccessToken(_token);
+
+      spotify.getMyDevices((err, res) => {
+        if (err) throw err;
+        console.log(res);
+        dispatch({
+          type: "SET_MY_DEVICES",
+          myDevices: res.devices.map((device) => device),
+        });
+      });
 
       spotify
         .getMe()
@@ -82,6 +90,7 @@ function App() {
   // console.log("PLAYLISTS", { playlists });
   // console.log("CHOOSENPLAYLIST", { choosenPlaylist });
   // console.log("OFFSET", { offset });
+  // console.log("WEB PLAYER", { web_player });
 
   return (
     <div className="app">

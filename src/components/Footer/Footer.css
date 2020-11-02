@@ -38,6 +38,10 @@
   cursor: pointer;
 }
 
+.MuiGrid-container {
+  align-items: center;
+}
+
 .footer_albumLogo {
   object-fit: contain;
   height: 60px;
@@ -94,7 +98,7 @@
 }
 
 .footer_queue:hover {
-  color: var(--music-color);
+  color: var(--music-color) !important;
   transform: scale(1.25) !important;
 }
 
@@ -120,7 +124,3 @@
   opacity: 50%;
   color: darkgray !important;
 }
-
-/* .no_song:hover {
-  color: var(--music-background-color) !important;
-} */

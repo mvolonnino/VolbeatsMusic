@@ -7,7 +7,7 @@ import "./Songs.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import SongRow from "../SongRow/SongRow";
 
-function Songs() {
+function Songs({ spotify }) {
   const [{ choosenPlaylist, song }, dispatch] = useDataLayerValue();
 
   const setShuffleSong = () => {
@@ -24,6 +24,22 @@ function Songs() {
     });
   };
 
+  const playSong = (id) => {
+    spotify
+      .play({
+        uris: [`spotify:track:${id}`],
+      })
+      .then((res) => {
+        spotify.getMyCurrentPlayingTrack().then((r) => {
+          console.log({ r });
+          dispatch({
+            type: "SET_PLAYING",
+            playing: true,
+          });
+        });
+      });
+  };
+
   console.log({ song });
   return (
     <div className="songs">
@@ -38,7 +54,13 @@ function Songs() {
       <hr />
       {/* List of songs */}
       {choosenPlaylist?.tracks.items.map((item, i) => (
-        <SongRow track={item.track} index={i} key={i} />
+        <SongRow
+          track={item.track}
+          index={i}
+          key={i}
+          spotify={spotify}
+          playSong={playSong}
+        />
       ))}
     </div>
   );
