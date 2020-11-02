@@ -16,6 +16,7 @@
   color: var(--music-background-color);
   transition: transform 200ms ease-in-out;
   transform: scale(1.03);
+  margin: 0px 30px;
 }
 
 .choosen_song {
@@ -42,6 +43,7 @@
 }
 
 .album_art:hover {
+  margin-left: 5px;
   transform: scale(4);
 }
 
