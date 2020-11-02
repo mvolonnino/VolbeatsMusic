@@ -7,12 +7,12 @@
 }
 
 .sidebar_option:hover,
-.sidebar_optionIcon:hover {
-  color: var(--music-color);
+.MuiSvgIcon-root:hover {
+  color: var(--music-color) !important;
   transition: color 200ms ease-out;
 }
 
-.sidebar_optionIcon {
+.MuiSvgIcon-root {
   color: var(--music-background-color);
   padding-right: 10px;
   padding-left: 10px;
