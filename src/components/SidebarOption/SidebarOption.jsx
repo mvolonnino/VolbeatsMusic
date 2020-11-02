@@ -52,7 +52,7 @@ function SidebarOption({ spotify, uri, title, Icon }) {
 
   return (
     <div className="sidebar_option">
-      {Icon && <Icon>{Icon}</Icon>}
+      {Icon && <Icon className="sidebar_optionIcon">{Icon}</Icon>}
       {Icon ? (
         <h4 onClick={getUserTracks}>{title}</h4>
       ) : (
