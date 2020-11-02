@@ -42,7 +42,7 @@
 
 .album_art:hover {
   transition: transform 100ms ease-in-out;
-  transform: scale(1.08);
+  transform: scale(4);
 }
 
 .index {

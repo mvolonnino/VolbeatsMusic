@@ -11,6 +11,7 @@ const ITEM_HEIGHT = 48;
 export default function LongMenu() {
   const [{ user }, dispatch] = useDataLayerValue();
   const options = {
+    User: user?.display_name,
     UserID: user?.id,
     Followers: user?.followers.total,
   };
