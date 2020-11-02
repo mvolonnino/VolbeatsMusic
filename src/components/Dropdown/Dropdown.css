@@ -2,3 +2,7 @@
   text-decoration: none;
   color: var(--music-color);
 }
+
+.vert_button {
+  color: var(--music-background-color) !important;
+}

@@ -15,7 +15,9 @@ function Header() {
         <input placeholder="Search for Songs, Artists, Albums..." type="text" />
       </div>
       <div className="header_right">
-        <Avatar src={user?.images[0].url} alt={user?.display_name} />
+        <div className="avatar">
+          <Avatar src={user?.images[0].url} alt={user?.display_name} />
+        </div>
         <Dropdown />
       </div>
     </div>
