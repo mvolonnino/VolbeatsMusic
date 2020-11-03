@@ -31,3 +31,24 @@
   margin-bottom: 5px;
   border: 1px solid darkgray;
 }
+
+.table {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.hash {
+  margin-left: 35px;
+  margin-right: 45px;
+}
+
+.title {
+  margin-right: auto;
+}
+
+.duration {
+  margin-right: 45px;
+}

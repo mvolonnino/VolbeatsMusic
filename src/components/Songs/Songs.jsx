@@ -2,6 +2,8 @@ import React from "react";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import TimerIcon from "@material-ui/icons/Timer";
+import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
 
 import "./Songs.css";
 import { useDataLayerValue } from "../../context/DataLayer";
@@ -51,6 +53,15 @@ function Songs({ spotify }) {
         />
         <FavoriteIcon className="favorite" fontSize="large" />
         <MoreHorizIcon className="more" />
+      </div>
+      <div className="table">
+        <small className="hash">
+          <FormatListNumberedIcon />
+        </small>
+        <p className="title">TITLE</p>
+        <small className="duration">
+          <TimerIcon />
+        </small>
       </div>
       <hr />
       {/* List of songs */}
