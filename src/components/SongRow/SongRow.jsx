@@ -4,7 +4,7 @@ import "./SongRow.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import millitoMinsAndSec, { milliToMinsAndSecs } from "../../helpers/mtosecs";
+import { milliToMinsAndSecs } from "../../helpers/mtosecs";
 
 function SongRow({ track, index, playSong, spotify }) {
   const [{ song, playing, myDevices }, dispatch] = useDataLayerValue();
