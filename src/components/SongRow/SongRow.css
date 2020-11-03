@@ -58,10 +58,11 @@
 
 .play_icon {
   display: block;
-  margin-left: auto;
+  margin-right: 10px;
   color: var(--music-color) !important;
 }
 
 .song_duration {
-  display: flex;
+  display: block;
+  margin-left: auto;
 }

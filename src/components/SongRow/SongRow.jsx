@@ -48,7 +48,28 @@ function SongRow({ track, index, playSong, spotify }) {
 
   return (
     <div className="song_row" onClick={pickSong}>
-      <p className="index">{index + 1}</p>
+      {song?.track?.name === track?.name ? (
+        playing ? (
+          <div
+            className={`hidden ${
+              song?.track?.name === track.name && "play_icon"
+            }`}
+          >
+            <PauseCircleOutlineIcon />
+          </div>
+        ) : (
+          <div
+            className={`hidden ${
+              song?.track?.name === track.name && "play_icon"
+            }`}
+          >
+            <PlayCircleOutlineIcon />
+          </div>
+        )
+      ) : (
+        <p className="index">{index + 1}</p>
+      )}
+
       <img
         className="album_art"
         src={track?.album?.images[0]?.url}
@@ -65,27 +86,8 @@ function SongRow({ track, index, playSong, spotify }) {
           ${track?.album?.name} • `}
           <small>({track?.album?.release_date})</small>
         </p>
-        <p className="song_duration">
-          {milliToMinsAndSecs(track?.duration_ms)}
-        </p>
       </div>
-      {playing ? (
-        <div
-          className={`hidden ${
-            song?.track?.name === track.name && "play_icon"
-          }`}
-        >
-          <PauseCircleOutlineIcon />
-        </div>
-      ) : (
-        <div
-          className={`hidden ${
-            song?.track?.name === track.name && "play_icon"
-          }`}
-        >
-          <PlayCircleOutlineIcon />
-        </div>
-      )}
+      <p className="song_duration">{milliToMinsAndSecs(track?.duration_ms)}</p>
     </div>
   );
 }
