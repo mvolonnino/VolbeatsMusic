@@ -22,6 +22,7 @@ function Songs({ spotify }) {
         index: songIndex,
       },
     });
+    playSong(songs[songIndex].track.id);
   };
 
   const playSong = (id) => {
