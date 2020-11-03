@@ -149,7 +149,7 @@ function Footer({ spotify }) {
       <div className="footer_right">
         <Grid container spacing={2}>
           <Grid item>
-            <Devices />
+            <Devices spotify={spotify} />
           </Grid>
           <Grid item>
             <VolumeDownTwoToneIcon className="footer_volDown" />
