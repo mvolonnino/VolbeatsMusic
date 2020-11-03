@@ -90,7 +90,7 @@ function App() {
   // console.log("PLAYLISTS", { playlists });
   // console.log("CHOOSENPLAYLIST", { choosenPlaylist });
   // console.log("OFFSET", { offset });
-  // console.log("WEB PLAYER", { web_player });
+  // console.log("MY DEVICES", { myDevices });
 
   return (
     <div className="app">

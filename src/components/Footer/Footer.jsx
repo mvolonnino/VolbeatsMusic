@@ -79,7 +79,6 @@ function Footer({ spotify }) {
       })
       .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
-          console.log({ r });
           dispatch({
             type: "SET_PLAYING",
             playing: true,

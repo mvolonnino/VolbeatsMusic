@@ -61,3 +61,7 @@
   margin-left: auto;
   color: var(--music-color) !important;
 }
+
+.song_duration {
+  display: flex;
+}

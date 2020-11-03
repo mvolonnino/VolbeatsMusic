@@ -4,6 +4,7 @@ import "./SongRow.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import millitoMinsAndSec, { milliToMinsAndSecs } from "../../helpers/mtosecs";
 
 function SongRow({ track, index, playSong, spotify }) {
   const [{ song, playing, myDevices }, dispatch] = useDataLayerValue();
@@ -63,6 +64,9 @@ function SongRow({ track, index, playSong, spotify }) {
           {`${track?.artists?.map((artist) => artist.name).join(", ")} -
           ${track?.album?.name} • `}
           <small>({track?.album?.release_date})</small>
+        </p>
+        <p className="song_duration">
+          {milliToMinsAndSecs(track?.duration_ms)}
         </p>
       </div>
       {playing ? (
