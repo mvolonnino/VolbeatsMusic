@@ -23,6 +23,14 @@
   color: var(--music-color);
 }
 
+.choosen_row {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+.choosen_row:hover {
+  color: var(--music-background-color);
+}
 .song_rowInfo {
   margin-left: 5px;
 }

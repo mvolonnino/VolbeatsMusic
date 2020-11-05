@@ -63,7 +63,12 @@ function SongRow({ track, index, playSong, spotify }) {
   };
 
   return (
-    <div className="song_row" onClick={pickSong}>
+    <div
+      className={`song_row ${
+        song?.track?.name === track.name && "choosen_row"
+      } `}
+      onClick={pickSong}
+    >
       {song?.track?.name === track?.name ? (
         playing ? (
           <div
