@@ -39,11 +39,10 @@
 .album_art {
   object-fit: contain;
   height: 40px;
-  transition: transform 100ms ease-in-out;
+  transition: transform 200ms ease-in-out;
 }
 
 .album_art:hover {
-  margin-left: 5px;
   transform: scale(4);
 }
 

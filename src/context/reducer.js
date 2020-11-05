@@ -9,6 +9,8 @@ export const initialState = {
   song: null,
   offset: 0,
   limit: 50,
+  restart: null,
+  fullSong: 0,
 };
 
 const reducer = (state, action) => {
@@ -59,6 +61,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         offset: action.offset,
+      };
+    case "SET_FULL_SONG":
+      return {
+        ...state,
+        fullSong: action.fullSong,
+      };
+    case "SET_RESTART":
+      return {
+        ...state,
+        restart: action.restart,
       };
     case "LOGOUT":
       return {

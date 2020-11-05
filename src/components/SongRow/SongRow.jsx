@@ -25,6 +25,14 @@ function SongRow({ track, index, playSong, spotify }) {
         index: index,
       },
     });
+    dispatch({
+      type: "SET_RESTART",
+      restart: true,
+    });
+    dispatch({
+      type: "SET_FULL_SONG",
+      fullSong: track.duration_ms,
+    });
     console.log({ song });
     if (device.is_active) {
       playSong(track.id);
@@ -37,6 +45,14 @@ function SongRow({ track, index, playSong, spotify }) {
         .then((res) => {
           spotify.getMyCurrentPlayingTrack().then((r) => {
             console.log({ r });
+            dispatch({
+              type: "SET_RESTART",
+              restart: false,
+            });
+            dispatch({
+              type: "SET_FULL_SONG",
+              fullSong: r.item.duration_ms,
+            });
             dispatch({
               type: "SET_PLAYING",
               playing: true,

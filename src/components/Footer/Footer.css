@@ -16,16 +16,47 @@
   color: var(--music-background-color);
   max-width: 300px;
 }
-
-.footer_center {
+.progress {
+  display: flex;
+  flex-direction: column;
   flex: 0.4;
-  padding: 0 100px;
-  color: var(--music-background-color);
+  justify-content: center;
+  padding: 20px;
+}
+
+.slider {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 300px;
+}
+.song_length {
+  font-size: 10px;
+  color: white;
+  margin-left: 5px;
+}
+.start_song {
+  font-size: 10px;
+  color: white;
+  margin-right: 5px;
+}
+
+.footer_center {
+  color: var(--music-background-color);
+  display: flex;
+  flex: row;
+  align-items: center;
+  justify-content: space-evenly;
   cursor: pointer;
+}
+
+.progress * .MuiSlider-root {
+  width: 90%;
+}
+
+.progress * .MuiSlider-colorPrimary {
+}
+
+.progress * .MuiSlider-thumb {
+  display: none;
 }
 
 .footer_right {

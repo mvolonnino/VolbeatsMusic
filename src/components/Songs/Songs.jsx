@@ -24,6 +24,10 @@ function Songs({ spotify }) {
         index: songIndex,
       },
     });
+    dispatch({
+      type: "SET_RESTART",
+      restart: true,
+    });
     playSong(songs[songIndex].track.id);
   };
 
@@ -36,8 +40,16 @@ function Songs({ spotify }) {
         spotify.getMyCurrentPlayingTrack().then((r) => {
           console.log({ r });
           dispatch({
+            type: "SET_FULL_SONG",
+            fullSong: r.item.duration_ms,
+          });
+          dispatch({
             type: "SET_PLAYING",
             playing: true,
+          });
+          dispatch({
+            type: "SET_RESTART",
+            restart: false,
           });
         });
       });

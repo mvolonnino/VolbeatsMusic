@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlayCircleFilledTwoToneIcon from "@material-ui/icons/PlayCircleFilledTwoTone";
 import SkipNextTwoToneIcon from "@material-ui/icons/SkipNextTwoTone";
 import SkipPreviousTwoToneIcon from "@material-ui/icons/SkipPreviousTwoTone";
@@ -9,14 +9,51 @@ import VolumeDownTwoToneIcon from "@material-ui/icons/VolumeDownTwoTone";
 import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
 import PauseCircleFilledTwoToneIcon from "@material-ui/icons/PauseCircleFilledTwoTone";
 import Devices from "../Devices/Devices";
+import { milliToMinsAndSecs } from "../../helpers/mtosecs";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
-  const [{ song, choosenPlaylist, playing }, dispatch] = useDataLayerValue();
+  const [
+    { song, choosenPlaylist, playing, restart, fullSong },
+    dispatch,
+  ] = useDataLayerValue();
+  const [milliSeconds, setMilliSeconds] = useState(0);
+  console.log({ milliSeconds });
+  console.log({ song, choosenPlaylist, restart, fullSong });
+
+  useEffect(() => {
+    let interval = null;
+    if (restart) {
+      setMilliSeconds(0);
+    }
+    if (playing && milliSeconds < fullSong) {
+      interval = setInterval(() => {
+        setMilliSeconds((milliSeconds) => milliSeconds + 1000);
+      }, 1000);
+    } else if (!playing && milliSeconds !== 0) {
+      clearInterval(interval);
+    } else if (milliSeconds > fullSong) {
+      dispatch({
+        type: "SET_PLAYING",
+        playing: false,
+      });
+      setMilliSeconds(0);
+    }
+    return () => clearInterval(interval);
+  }, [playing, milliSeconds, restart, dispatch, fullSong]);
 
   const handlePlayPause = () => {
+    spotify
+      .getMyCurrentPlayingTrack()
+      .then((res) => {
+        const { progress_ms } = res;
+        console.log(progress_ms);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
     if (playing) {
       spotify.pause();
       dispatch({
@@ -48,8 +85,12 @@ function Footer({ spotify }) {
           index: song.index + 1,
         },
       });
+      dispatch({
+        type: "SET_RESTART",
+        restart: true,
+      });
+      playThisSong(upNextSong);
     }
-    playThisSong(upNextSong);
   };
 
   const prevSong = () => {
@@ -67,8 +108,12 @@ function Footer({ spotify }) {
           index: song.index - 1,
         },
       });
+      dispatch({
+        type: "SET_RESTART",
+        restart: true,
+      });
+      playThisSong(lastSong);
     }
-    playThisSong(lastSong);
   };
 
   const playThisSong = (song) => {
@@ -80,9 +125,17 @@ function Footer({ spotify }) {
       .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
           dispatch({
+            type: "SET_FULL_SONG",
+            fullSong: song.duration_ms,
+          });
+          dispatch({
             type: "SET_PLAYING",
             playing: true,
           });
+        });
+        dispatch({
+          type: "SET_RESTART",
+          restart: false,
         });
       });
   };
@@ -117,33 +170,46 @@ function Footer({ spotify }) {
           )}
         </div>
       </div>
-      <div className={`footer_center ${!song && "no_song"}`}>
-        <ShuffleTwoToneIcon className="footer_shuffle" />
-        <SkipPreviousTwoToneIcon
-          className={`footer_prev ${song?.index === 0 && "no_song"}`}
-          onClick={prevSong}
-        />
-        {playing ? (
-          <PauseCircleFilledTwoToneIcon
-            className="footer_play"
-            fontSize="large"
-            onClick={handlePlayPause}
+      <div className="progress">
+        <div className={`footer_center ${!song && "no_song"}`}>
+          <ShuffleTwoToneIcon className="footer_shuffle" />
+          <SkipPreviousTwoToneIcon
+            className={`footer_prev ${song?.index === 0 && "no_song"}`}
+            onClick={prevSong}
           />
-        ) : (
-          <PlayCircleFilledTwoToneIcon
-            className="footer_play"
-            fontSize="large"
-            onClick={handlePlayPause}
+          {playing ? (
+            <PauseCircleFilledTwoToneIcon
+              className="footer_play"
+              fontSize="large"
+              onClick={handlePlayPause}
+            />
+          ) : (
+            <PlayCircleFilledTwoToneIcon
+              className="footer_play"
+              fontSize="large"
+              onClick={handlePlayPause}
+            />
+          )}
+          <SkipNextTwoToneIcon
+            className={`footer_next ${
+              song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
+              "no_song"
+            }`}
+            onClick={nextSong}
           />
-        )}
-        <SkipNextTwoToneIcon
-          className={`footer_next ${
-            song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
-            "no_song"
-          }`}
-          onClick={nextSong}
-        />
-        <RepeatTwoToneIcon className="footer_repeat" />
+          <RepeatTwoToneIcon className="footer_repeat" />
+        </div>
+        <div className="slider">
+          {song ? (
+            <div className="start_song">{milliToMinsAndSecs(milliSeconds)}</div>
+          ) : (
+            <div className="start_song">--:--</div>
+          )}
+          <Slider max={fullSong} value={milliSeconds} />
+          {song && (
+            <div className="song_length">{milliToMinsAndSecs(fullSong)}</div>
+          )}
+        </div>
       </div>
       <div className="footer_right">
         <Grid container spacing={2}>
