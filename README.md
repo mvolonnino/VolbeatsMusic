@@ -5,6 +5,12 @@ This project utilizes the Spotify Web API to create a Spotify Clone with updated
 
 Uses Spotify's authentication to be able to gain access to the user's Spotify profile and playlists they have created. Once authenticated, you will be granted access to Volbeats Music, which will allow the user to see user's top playlists, look through the user's liked songs, and pick any song to have playback through a connected Spotify Device. 
 
+## Live Demo
+
+![Demo of Volbeats Music](src/img/Volbeats%20Music.gif)
+
+**Link** - [watch with volume](https://drive.google.com/file/d/1o6-waenxrvnvMfdrwBpVC0lHfhGnwBNa/view)
+
 
 **TO PLAY MUSIC**
 
@@ -33,5 +39,23 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 * Ability to ADD or REMOVE songs from Liked Library / Playlists
 * Search Feature to either search from your current playlist OR hopefully Spotify library of songs
   
+
+### Technologies Utilized
+* React
+* Context API
+* HTML5
+* CSS
+* Material UI
+* Animations
+* Spotify Web API
+* Firebase Hosting
+  
+### Contributing Author(s)
+
+- Matt Volonnino :
+  - {
+    - [GitHub Repository](https://github.com/mvolonnino)
+    - [Email](mailto:mvolonnino12@gmail.com)
+  - }
 
 
