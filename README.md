@@ -12,3 +12,26 @@ Uses Spotify's authentication to be able to gain access to the user's Spotify pr
 
 **Authentication Tokens last for 1 hour**
 
+## Functionality
+As of now functionality is at 95%. Every Playlist can be played that is in your Playlists section with every song being selected (with a limit off first 100 songs for right now), your entire liked library of songs, and Discover Weekly playlist located in Home section. 
+
+**BUTTONS THAT WORK**
+
+* Big Play button works as 'shuffle'
+* Play, Skip, Previous in footer fully functional
+* Device Icon functional to show connected devices
+* Volume Controls fully functional - both slider and volume up and down buttons
+* Avatar button that links to user Spotify Profile and Logout
+  
+
+## Future Updates
+
+* Seek - able to utilize the slider and seek to the current time in the song
+* Ability to get access to whole playlist if over the allowed limit of 100 - already have this issue solved for Your Library
+* Shuffle Button in footer
+* Repeat Button in footer
+* Ability to ADD or REMOVE songs from Liked Library / Playlists
+* Search Feature to either search from your current playlist OR hopefully Spotify library of songs
+  
+
+
