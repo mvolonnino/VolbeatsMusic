@@ -9,7 +9,9 @@ Uses Spotify's authentication to be able to gain access to the user's Spotify pr
 
 ![Demo of Volbeats Music](src/img/Volbeats%20Music.gif)
 
-**Link** - [watch with volume](https://drive.google.com/file/d/1o6-waenxrvnvMfdrwBpVC0lHfhGnwBNa/view)
+**Link** - [Watch with volume](https://drive.google.com/file/d/1o6-waenxrvnvMfdrwBpVC0lHfhGnwBNa/view)
+
+**Link** - [Volbeats Music](https://volbeats-music.web.app/)
 
 
 **TO PLAY MUSIC**
