@@ -14,7 +14,6 @@
   align-items: center;
   flex: 0.3;
   color: var(--music-background-color);
-  max-width: 300px;
 }
 .progress {
   display: flex;
