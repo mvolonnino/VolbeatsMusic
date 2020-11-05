@@ -68,18 +68,25 @@
   display: none;
 }
 
+.footer_right * .MuiSlider-root {
+}
+
 .footer_right {
   flex: 0.3;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  margin-right: 50px;
+  justify-content: space-between;
   color: var(--music-background-color);
   cursor: pointer;
 }
 
 .MuiGrid-container {
   align-items: center;
+}
+
+.footer_volUp {
+  margin-right: 40px;
+  margin-left: 5px;
 }
 
 .footer_albumLogo {
@@ -163,4 +170,14 @@
 .no_song {
   opacity: 50%;
   color: darkgray !important;
+}
+
+.no_volume {
+  opacity: 50%;
+  color: darkgray !important;
+}
+
+.no_volume:hover {
+  color: var(--music-color) !important;
+  opacity: 100%;
 }

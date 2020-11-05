@@ -11,6 +11,7 @@ export const initialState = {
   limit: 50,
   restart: null,
   fullSong: 0,
+  volumeLvl: null,
 };
 
 const reducer = (state, action) => {
@@ -71,6 +72,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         restart: action.restart,
+      };
+    case "SET_VOLUME_LEVEL":
+      return {
+        ...state,
+        volumeLvl: action.volumeLvl,
       };
     case "LOGOUT":
       return {

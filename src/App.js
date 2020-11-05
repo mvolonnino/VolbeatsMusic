@@ -17,11 +17,6 @@ function App() {
     window.location.hash = "";
 
     if (_token) {
-      dispatch({
-        type: "SET_TOKEN",
-        token: _token,
-      });
-
       spotify.setAccessToken(_token);
 
       spotify.getMyDevices((err, res) => {
@@ -30,6 +25,10 @@ function App() {
         dispatch({
           type: "SET_MY_DEVICES",
           myDevices: res.devices.map((device) => device),
+        });
+        dispatch({
+          type: "SET_VOLUME_LEVEL",
+          volumeLvl: res.devices[0].volume_percent,
         });
       });
 
@@ -82,6 +81,11 @@ function App() {
         .catch((err) => {
           console.log({ err });
         });
+
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
     }
   }, [dispatch, limit, offset]);
 

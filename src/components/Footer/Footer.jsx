@@ -10,20 +10,22 @@ import VolumeUpTwoToneIcon from "@material-ui/icons/VolumeUpTwoTone";
 import PauseCircleFilledTwoToneIcon from "@material-ui/icons/PauseCircleFilledTwoTone";
 import Devices from "../Devices/Devices";
 import { milliToMinsAndSecs } from "../../helpers/mtosecs";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
   const [
-    { song, choosenPlaylist, playing, restart, fullSong },
+    { song, choosenPlaylist, playing, restart, fullSong, volumeLvl },
     dispatch,
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
-  console.log({ milliSeconds });
-  console.log({ song, choosenPlaylist, restart, fullSong });
+  const [volume, setVolume] = useState(volumeLvl);
+  console.log({ song, choosenPlaylist, restart, fullSong, volume, volumeLvl });
 
   useEffect(() => {
+    setVolume(volumeLvl);
     let interval = null;
     if (restart) {
       setMilliSeconds(0);
@@ -42,7 +44,7 @@ function Footer({ spotify }) {
       setMilliSeconds(0);
     }
     return () => clearInterval(interval);
-  }, [playing, milliSeconds, restart, dispatch, fullSong]);
+  }, [playing, milliSeconds, restart, dispatch, fullSong, volumeLvl]);
 
   const handlePlayPause = () => {
     spotify
@@ -140,6 +142,42 @@ function Footer({ spotify }) {
       });
   };
 
+  const SetVolumeLvl = (event, newValue) => {
+    switch (event) {
+      case "up":
+        if (volumeLvl <= 75) {
+          newValue = parseInt(volumeLvl + 25);
+          console.log({ event, newValue });
+        } else {
+          newValue = 100;
+        }
+        break;
+      case "down":
+        if (volumeLvl >= 25) {
+          newValue = parseInt(volumeLvl - 25);
+          console.log({ event, newValue });
+        } else {
+          newValue = 0;
+        }
+        break;
+      default:
+        break;
+    }
+    setVolume(newValue);
+
+    spotify
+      .setVolume(newValue)
+      .then(() => {
+        dispatch({
+          type: "SET_VOLUME_LEVEL",
+          volumeLvl: newValue,
+        });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
+
   return (
     <div className="footer">
       <div className="footer_left">
@@ -217,13 +255,28 @@ function Footer({ spotify }) {
             <Devices spotify={spotify} />
           </Grid>
           <Grid item>
-            <VolumeDownTwoToneIcon className="footer_volDown" />
-          </Grid>
-          <Grid item>
-            <VolumeUpTwoToneIcon className="footer_volUp" />
+            {volumeLvl === 0 ? (
+              <VolumeOffIcon className="footer_volDown" />
+            ) : (
+              <VolumeDownTwoToneIcon
+                className="footer_volDown"
+                onClick={() => SetVolumeLvl("down")}
+              />
+            )}
           </Grid>
           <Grid item xs>
-            <Slider aria-labelledby="continuous-slider" />
+            <Slider
+              aria-labelledby="continuous-slider"
+              value={volume}
+              onChange={SetVolumeLvl}
+              step={25}
+            />
+          </Grid>
+          <Grid item>
+            <VolumeUpTwoToneIcon
+              className={`footer_volUp ${volumeLvl === 0 && "no_volume"}`}
+              onClick={() => SetVolumeLvl("up")}
+            />
           </Grid>
         </Grid>
       </div>
