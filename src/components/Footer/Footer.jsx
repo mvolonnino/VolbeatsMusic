@@ -181,13 +181,13 @@ function Footer({ spotify }) {
             <PauseCircleFilledTwoToneIcon
               className="footer_play"
               fontSize="large"
-              onClick={handlePlayPause}
+              onClick={song && handlePlayPause}
             />
           ) : (
             <PlayCircleFilledTwoToneIcon
               className="footer_play"
               fontSize="large"
-              onClick={handlePlayPause}
+              onClick={song && handlePlayPause}
             />
           )}
           <SkipNextTwoToneIcon

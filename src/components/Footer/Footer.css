@@ -53,6 +53,15 @@
 }
 
 .progress * .MuiSlider-colorPrimary {
+  color: var(--music-background-color) !important;
+}
+
+.progress * .MuiSlider-colorPrimary:hover {
+  color: var(--music-color) !important;
+}
+
+.MuiSlider-rail {
+  color: #3f51b5 !important;
 }
 
 .progress * .MuiSlider-thumb {
