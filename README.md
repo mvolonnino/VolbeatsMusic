@@ -19,6 +19,7 @@ Uses Spotify's authentication to be able to gain access to the user's Spotify pr
 `User must either open the Spotify Application on their computer or open Spotify on the Web Browser so that they have an active device. Device icon by volume slider will show if you have any active devices. If after clicking the link to activate a device, and the device shows "Web Player", play a song of the Spotify Web Player to activate the device. You can pause the song after it starts playing in Spotify. Once you have an active device that shows in the device icon, you should be able to play any song of Volbeats Music. There is a quirk that comes with the Spotify Web Player where music might not start unless you are on that tab, so you might have to click back into the Spotify tab to have the music play. That step should only have to be done once and only if your not using the actual Spotify App for computer.`
 
 **Best Way**
+
 `Open the Spotify App on your computer and then sign in to Volbeats Music` 
 
 **Authentication Tokens last for 1 hour**
