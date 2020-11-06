@@ -16,7 +16,7 @@ Uses Spotify's authentication to be able to gain access to the user's Spotify pr
 
 **TO PLAY MUSIC**
 
-`User must either open the Spotify Application on their computer or open Spotify on the Web Browser so that they have an active device. Device icon by volume slider will show if you have any active devices. Once you have an active device, either refresh Volbeats Music and sign back in so that the authentication will allow access to play music off an active device. You may then pick any song through Volbeats Music for it to begin playing.`
+`User must either open the Spotify Application on their computer or open Spotify on the Web Browser so that they have an active device. Device icon by volume slider will show if you have any active devices. If after clicking the link to activate a device, and the device shows "Web Player", play a song of the Spotify Web Player to activate the device. You can pause the song after it starts playing in Spotify. Once you have an active device that shows in the device icon, you should be able to play any song of Volbeats Music. There is a quirk that comes with the Spotify Web Player where music might not start unless you are on that tab, so you might have to click back into the Spotify tab to have the music play. That step should only have to be done once and only if your not using the actual Spotify App for computer.`
 
 **Authentication Tokens last for 1 hour**
 
@@ -40,6 +40,7 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 * Repeat Button in footer
 * Ability to ADD or REMOVE songs from Liked Library / Playlists
 * Search Feature to either search from your current playlist OR hopefully Spotify library of songs
+* Error Handling - have all errors in a catch, will then display them to user
   
 
 ### Technologies Utilized

@@ -9,12 +9,10 @@ import { milliToMinsAndSecs } from "../../helpers/mtosecs";
 function SongRow({ track, index, playSong, spotify }) {
   const [{ song, playing, myDevices }, dispatch] = useDataLayerValue();
 
-  const device = myDevices
-    .map((device) => device)
-    .filter(
-      (device) =>
-        device.name === "Web Player (Chrome)" || device.name === "MacBook Pro"
-    );
+  // const device = myDevices
+  //   .map((device) => device)
+  //   .filter((device) => device.is_active === true);
+  // console.log({ device });
 
   const pickSong = () => {
     console.log(track);
@@ -34,31 +32,43 @@ function SongRow({ track, index, playSong, spotify }) {
       fullSong: track.duration_ms,
     });
     console.log({ song });
-    if (device.is_active) {
+    if (myDevices[0]?.is_active) {
       playSong(track.id);
     } else {
-      spotify
-        .play({
-          device_id: device[0]?.id,
+      spotify.play(
+        {
+          device_id: myDevices[0]?.id,
           uris: [track.uri],
-        })
-        .then((res) => {
-          spotify.getMyCurrentPlayingTrack().then((r) => {
-            console.log({ r });
+        },
+        (err, res) => {
+          console.log({ err, res });
+          if (err) {
             dispatch({
-              type: "SET_RESTART",
-              restart: false,
+              type: "SET_ERROR",
+              error: err.response,
             });
-            dispatch({
-              type: "SET_FULL_SONG",
-              fullSong: r.item.duration_ms,
+          }
+          spotify
+            .getMyCurrentPlayingTrack()
+            .then((r) => {
+              console.log({ r });
+              dispatch({
+                type: "SET_RESTART",
+                restart: false,
+              });
+              dispatch({
+                type: "SET_PLAYING",
+                playing: true,
+              });
+            })
+            .catch((err) => {
+              dispatch({
+                type: "SET_ERROR",
+                error: err.response,
+              });
             });
-            dispatch({
-              type: "SET_PLAYING",
-              playing: true,
-            });
-          });
-        });
+        }
+      );
     }
   };
 

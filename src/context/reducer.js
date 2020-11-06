@@ -12,6 +12,7 @@ export const initialState = {
   restart: null,
   fullSong: 0,
   volumeLvl: null,
+  error: null,
 };
 
 const reducer = (state, action) => {
@@ -77,6 +78,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         volumeLvl: action.volumeLvl,
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.error,
       };
     case "LOGOUT":
       return {

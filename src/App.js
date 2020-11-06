@@ -24,11 +24,11 @@ function App() {
         console.log(res);
         dispatch({
           type: "SET_MY_DEVICES",
-          myDevices: res.devices.map((device) => device),
+          myDevices: res?.devices?.map((device) => device),
         });
         dispatch({
           type: "SET_VOLUME_LEVEL",
-          volumeLvl: res.devices[0].volume_percent,
+          volumeLvl: res?.devices[0]?.volume_percent,
         });
       });
 

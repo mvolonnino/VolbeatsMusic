@@ -22,7 +22,6 @@ function Footer({ spotify }) {
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [volume, setVolume] = useState(volumeLvl);
-  console.log({ song, choosenPlaylist, restart, fullSong, volume, volumeLvl });
 
   useEffect(() => {
     setVolume(volumeLvl);
@@ -51,10 +50,13 @@ function Footer({ spotify }) {
       .getMyCurrentPlayingTrack()
       .then((res) => {
         const { progress_ms } = res;
-        console.log(progress_ms);
       })
       .catch((err) => {
         console.log({ err });
+        dispatch({
+          type: "SET_ERROR",
+          error: err.response,
+        });
       });
     if (playing) {
       spotify.pause();
@@ -79,7 +81,6 @@ function Footer({ spotify }) {
           .map((track) => track.track)
           .filter((track, i) => i === song.index + 1)
       );
-      console.log({ upNextSong });
       dispatch({
         type: "SET_SONG",
         song: {
@@ -147,7 +148,6 @@ function Footer({ spotify }) {
       case "up":
         if (volumeLvl <= 75) {
           newValue = parseInt(volumeLvl + 25);
-          console.log({ event, newValue });
         } else {
           newValue = 100;
         }
@@ -155,7 +155,6 @@ function Footer({ spotify }) {
       case "down":
         if (volumeLvl >= 25) {
           newValue = parseInt(volumeLvl - 25);
-          console.log({ event, newValue });
         } else {
           newValue = 0;
         }
@@ -267,7 +266,7 @@ function Footer({ spotify }) {
           <Grid item xs>
             <Slider
               aria-labelledby="continuous-slider"
-              value={volume}
+              value={volume || 50}
               onChange={SetVolumeLvl}
               step={25}
             />
