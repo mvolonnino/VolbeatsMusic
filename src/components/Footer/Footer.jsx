@@ -266,7 +266,7 @@ function Footer({ spotify }) {
           <Grid item xs>
             <Slider
               aria-labelledby="continuous-slider"
-              value={volume || 50}
+              value={volume || 0}
               onChange={SetVolumeLvl}
               step={25}
             />
