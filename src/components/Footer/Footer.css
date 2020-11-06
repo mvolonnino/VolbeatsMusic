@@ -163,17 +163,17 @@
 }
 
 .none {
-  color: darkgray !important;
+  color: gray !important;
 }
 
 .no_song {
-  opacity: 50%;
-  color: darkgray !important;
+  opacity: 0.5;
+  color: gray !important;
 }
 
 .no_volume {
-  opacity: 50%;
-  color: darkgray !important;
+  opacity: 0.5;
+  color: gray !important;
 }
 
 .no_volume:hover {
