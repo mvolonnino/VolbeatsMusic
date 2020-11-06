@@ -269,6 +269,7 @@ function Footer({ spotify }) {
               value={volume || 0}
               onChange={SetVolumeLvl}
               step={25}
+              valueLabelDisplay="auto"
             />
           </Grid>
           <Grid item>
