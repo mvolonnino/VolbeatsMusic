@@ -36,11 +36,13 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 * Avatar button that links to user Spotify Profile and Logout
 * Progress Bar for Song - Seeking
 * Repeat Button - one click turns on to continue playing next song, two clicks and repeats same song
+* Play Pause icon now functional next to selected or playing song
 
 ## Future Updates
 
 * ~~Seek - able to utilize the slider and seek to the current time in the song~~
 * Ability to get access to whole playlist if over the allowed limit of 100 - already have this issue solved for Your Library
+* ~~Play Pause icon next to Song when song is selected~~
 * Shuffle Button in footer
 * ~~Repeat Button in footer~~
 * Ability to ADD or REMOVE songs from Liked Library / Playlists
