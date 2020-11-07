@@ -22,6 +22,7 @@ function Footer({ spotify }) {
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [volume, setVolume] = useState(volumeLvl);
+  const [repeat, setRepeat] = useState(false);
 
   useEffect(() => {
     setVolume(volumeLvl);
@@ -29,7 +30,10 @@ function Footer({ spotify }) {
     if (restart) {
       setMilliSeconds(0);
     }
-    if (playing && milliSeconds < fullSong) {
+    if (
+      (playing && milliSeconds < fullSong) ||
+      (repeat && milliSeconds < fullSong)
+    ) {
       interval = setInterval(() => {
         setMilliSeconds((milliSeconds) => milliSeconds + 1000);
       }, 1000);
@@ -48,9 +52,7 @@ function Footer({ spotify }) {
   const handlePlayPause = () => {
     spotify
       .getMyCurrentPlayingTrack()
-      .then((res) => {
-        const { progress_ms } = res;
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log({ err });
         dispatch({
@@ -177,6 +179,34 @@ function Footer({ spotify }) {
       });
   };
 
+  const handleSeek = (event, value) => {
+    let valueToSeek;
+    if (event) {
+      console.log({ event, value });
+      setMilliSeconds(value);
+      valueToSeek = value;
+    }
+    spotify.seek(valueToSeek, (err, res) => {
+      console.log("SEEK", { err, res });
+    });
+  };
+
+  const handleRepeat = () => {
+    setRepeat(!repeat);
+  };
+
+  useEffect(() => {
+    if (repeat) {
+      spotify.setRepeat("track", (err, res) => {
+        console.log("REPEAT ON", { err, res });
+      });
+    } else {
+      spotify.setRepeat("off", (err, res) => {
+        console.log("REPEAT OFF", { err, res });
+      });
+    }
+  }, [repeat]);
+
   return (
     <div className="footer">
       <div className="footer_left">
@@ -234,7 +264,10 @@ function Footer({ spotify }) {
             }`}
             onClick={nextSong}
           />
-          <RepeatTwoToneIcon className="footer_repeat" />
+          <RepeatTwoToneIcon
+            className={`footer_repeat ${repeat && "repeat_true"}`}
+            onClick={handleRepeat}
+          />
         </div>
         <div className="slider">
           {song ? (
@@ -242,7 +275,12 @@ function Footer({ spotify }) {
           ) : (
             <div className="start_song">--:--</div>
           )}
-          <Slider max={fullSong} value={milliSeconds} />
+          <Slider
+            max={fullSong}
+            value={milliSeconds}
+            onChange={handleSeek}
+            step={1000}
+          />
           {song && (
             <div className="song_length">{milliToMinsAndSecs(fullSong)}</div>
           )}
