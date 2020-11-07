@@ -11,6 +11,7 @@ import PauseCircleFilledTwoToneIcon from "@material-ui/icons/PauseCircleFilledTw
 import Devices from "../Devices/Devices";
 import { milliToMinsAndSecs } from "../../helpers/mtosecs";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
@@ -32,22 +33,24 @@ function Footer({ spotify }) {
     }
     if (
       (playing && milliSeconds < fullSong) ||
-      (repeat && milliSeconds < fullSong)
+      (playing && repeat && milliSeconds < fullSong)
     ) {
       interval = setInterval(() => {
         setMilliSeconds((milliSeconds) => milliSeconds + 1000);
       }, 1000);
     } else if (!playing && milliSeconds !== 0) {
       clearInterval(interval);
-    } else if (milliSeconds > fullSong) {
+    } else if (milliSeconds > fullSong && !repeat) {
       dispatch({
         type: "SET_PLAYING",
         playing: false,
       });
       setMilliSeconds(0);
+    } else if (milliSeconds > fullSong && repeat) {
+      setMilliSeconds(0);
     }
     return () => clearInterval(interval);
-  }, [playing, milliSeconds, restart, dispatch, fullSong, volumeLvl]);
+  }, [playing, milliSeconds, restart, dispatch, fullSong, volumeLvl, repeat]);
 
   const handlePlayPause = () => {
     spotify
@@ -205,7 +208,7 @@ function Footer({ spotify }) {
         console.log("REPEAT OFF", { err, res });
       });
     }
-  }, [repeat]);
+  }, [repeat, spotify]);
 
   return (
     <div className="footer">
@@ -264,10 +267,17 @@ function Footer({ spotify }) {
             }`}
             onClick={nextSong}
           />
-          <RepeatTwoToneIcon
-            className={`footer_repeat ${repeat && "repeat_true"}`}
-            onClick={handleRepeat}
-          />
+          {repeat ? (
+            <RepeatOneIcon
+              className={`footer_repeat ${repeat && "repeat_true"}`}
+              onClick={handleRepeat}
+            />
+          ) : (
+            <RepeatTwoToneIcon
+              className={`footer_repeat ${repeat && "repeat_true"}`}
+              onClick={handleRepeat}
+            />
+          )}
         </div>
         <div className="slider">
           {song ? (
