@@ -83,47 +83,51 @@ function Footer({ spotify }) {
 
   const nextSong = () => {
     let upNextSong = {};
-    if (song.index < choosenPlaylist?.tracks?.items.length - 1) {
-      upNextSong = Object.assign(
-        ...choosenPlaylist?.tracks?.items
-          .map((track) => track.track)
-          .filter((track, i) => i === song.index + 1)
-      );
-      dispatch({
-        type: "SET_SONG",
-        song: {
-          track: upNextSong,
-          index: song.index + 1,
-        },
-      });
-      dispatch({
-        type: "SET_RESTART",
-        restart: true,
-      });
-      playThisSong(upNextSong);
+    if (song) {
+      if (song?.index < choosenPlaylist?.tracks?.items.length - 1) {
+        upNextSong = Object.assign(
+          ...choosenPlaylist?.tracks?.items
+            .map((track) => track.track)
+            .filter((track, i) => i === song.index + 1)
+        );
+        dispatch({
+          type: "SET_SONG",
+          song: {
+            track: upNextSong,
+            index: song.index + 1,
+          },
+        });
+        dispatch({
+          type: "SET_RESTART",
+          restart: true,
+        });
+        playThisSong(upNextSong);
+      }
     }
   };
 
   const prevSong = () => {
     let lastSong = {};
-    if (song.index !== 0) {
-      lastSong = Object.assign(
-        ...choosenPlaylist?.tracks?.items
-          .map((track) => track.track)
-          .filter((track, i) => i === song.index - 1)
-      );
-      dispatch({
-        type: "SET_SONG",
-        song: {
-          track: lastSong,
-          index: song.index - 1,
-        },
-      });
-      dispatch({
-        type: "SET_RESTART",
-        restart: true,
-      });
-      playThisSong(lastSong);
+    if (song) {
+      if (song?.index !== 0) {
+        lastSong = Object.assign(
+          ...choosenPlaylist?.tracks?.items
+            .map((track) => track.track)
+            .filter((track, i) => i === song.index - 1)
+        );
+        dispatch({
+          type: "SET_SONG",
+          song: {
+            track: lastSong,
+            index: song.index - 1,
+          },
+        });
+        dispatch({
+          type: "SET_RESTART",
+          restart: true,
+        });
+        playThisSong(lastSong);
+      }
     }
   };
 
@@ -170,7 +174,6 @@ function Footer({ spotify }) {
       default:
         break;
     }
-    setVolume(newValue);
 
     spotify
       .setVolume(newValue)
@@ -296,17 +299,6 @@ function Footer({ spotify }) {
               onClick={handleRepeat}
             />
           )}
-          {/* {repeat ? (
-            <RepeatOneIcon
-              className={`footer_repeat ${repeat && "repeat_true"}`}
-              onClick={handleRepeat}
-            />
-          ) : (
-            <RepeatTwoToneIcon
-              className={`footer_repeat`}
-              onClick={handleRepeat}
-            />
-          )} */}
         </div>
         <div className="slider">
           {song ? (
@@ -345,7 +337,7 @@ function Footer({ spotify }) {
               aria-labelledby="continuous-slider"
               value={volume || 0}
               onChange={SetVolumeLvl}
-              step={25}
+              step={10}
               valueLabelDisplay="auto"
             />
           </Grid>

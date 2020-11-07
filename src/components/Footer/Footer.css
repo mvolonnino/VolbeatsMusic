@@ -67,7 +67,13 @@
   display: none;
 }
 
-.footer_right * .MuiSlider-root {
+/* .footer_right * .MuiSlider-thumb {
+  border: 2px solid var(--music-color) !important ;
+  background-color: #fff;
+} */
+
+.PrivateValueLabel-open-2 {
+  color: rgb(40, 40, 40) !important;
 }
 
 .footer_right {
