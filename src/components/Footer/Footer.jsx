@@ -274,7 +274,7 @@ function Footer({ spotify }) {
             />
           ) : (
             <RepeatTwoToneIcon
-              className={`footer_repeat ${repeat && "repeat_true"}`}
+              className={`footer_repeat`}
               onClick={handleRepeat}
             />
           )}
