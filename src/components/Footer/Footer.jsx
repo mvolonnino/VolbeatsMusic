@@ -58,7 +58,22 @@ function Footer({ spotify }) {
   const handlePlayPause = () => {
     spotify
       .getMyCurrentPlayingTrack()
-      .then((res) => {})
+      .then((res) => {
+        console.log("HANDLE PLAYPAUSE", { res });
+        if (res.is_playing) {
+          spotify.pause();
+          dispatch({
+            type: "SET_PLAYING",
+            playing: false,
+          });
+        } else {
+          spotify.play();
+          dispatch({
+            type: "SET_PLAYING",
+            playing: true,
+          });
+        }
+      })
       .catch((err) => {
         console.log({ err });
         dispatch({
@@ -66,19 +81,6 @@ function Footer({ spotify }) {
           error: err.response,
         });
       });
-    if (playing) {
-      spotify.pause();
-      dispatch({
-        type: "SET_PLAYING",
-        playing: false,
-      });
-    } else {
-      spotify.play();
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
-      });
-    }
   };
 
   const nextSong = () => {
@@ -211,18 +213,26 @@ function Footer({ spotify }) {
   };
 
   useEffect(() => {
+    dispatch({
+      type: "SET_HANDLE_PLAY_PAUSE",
+      handlePlayPause: handlePlayPause,
+    });
     if (myDevices) {
       if (repeat === 2) {
-        spotify.setRepeat("track", (err, res) => {
-          console.log("REPEAT ON", { err, res });
-        });
+        spotify.setRepeat(
+          "track",
+          { device_id: myDevices[0].id },
+          (err, res) => {
+            console.log("REPEAT ON", { err, res });
+          }
+        );
       } else if (repeat === 0) {
-        spotify.setRepeat("off", (err, res) => {
+        spotify.setRepeat("off", { device_id: myDevices[0].id }, (err, res) => {
           console.log("REPEAT OFF", { err, res });
         });
       }
     }
-  }, [repeat, spotify, myDevices]);
+  }, [repeat, spotify, myDevices, dispatch]);
 
   return (
     <div className="footer">

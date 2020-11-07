@@ -7,7 +7,10 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { milliToMinsAndSecs } from "../../helpers/mtosecs";
 
 function SongRow({ track, index, playSong, spotify }) {
-  const [{ song, playing, myDevices }, dispatch] = useDataLayerValue();
+  const [
+    { song, playing, myDevices, handlePlayPause },
+    dispatch,
+  ] = useDataLayerValue();
 
   // const device = myDevices
   //   .map((device) => device)
@@ -77,7 +80,6 @@ function SongRow({ track, index, playSong, spotify }) {
       className={`song_row ${
         song?.track?.name === track.name && "choosen_row"
       } `}
-      onClick={pickSong}
     >
       {song?.track?.name === track?.name ? (
         playing ? (
@@ -86,7 +88,10 @@ function SongRow({ track, index, playSong, spotify }) {
               song?.track?.name === track.name && "play_icon"
             }`}
           >
-            <PauseCircleOutlineIcon />
+            <PauseCircleOutlineIcon
+              className="play_pause_icon"
+              onClick={handlePlayPause}
+            />
           </div>
         ) : (
           <div
@@ -94,7 +99,10 @@ function SongRow({ track, index, playSong, spotify }) {
               song?.track?.name === track.name && "play_icon"
             }`}
           >
-            <PlayCircleOutlineIcon />
+            <PlayCircleOutlineIcon
+              className="play_pause_icon"
+              onClick={handlePlayPause}
+            />
           </div>
         )
       ) : (
@@ -110,6 +118,7 @@ function SongRow({ track, index, playSong, spotify }) {
         className={`song_rowInfo ${
           song?.track?.name === track.name && "choosen_song"
         } `}
+        onClick={pickSong}
       >
         <h1>{track?.name}</h1>
         <p>

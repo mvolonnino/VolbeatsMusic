@@ -73,3 +73,11 @@
   display: block;
   margin-left: auto;
 }
+
+.play_pause_icon {
+  transition: transform 200ms;
+}
+
+.play_pause_icon:hover {
+  transform: scale(1.1);
+}

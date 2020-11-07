@@ -13,6 +13,7 @@ export const initialState = {
   fullSong: 0,
   volumeLvl: null,
   error: null,
+  handlePlayPause: null,
 };
 
 const reducer = (state, action) => {
@@ -78,6 +79,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         volumeLvl: action.volumeLvl,
+      };
+    case "SET_HANDLE_PLAY_PAUSE":
+      return {
+        ...state,
+        handlePlayPause: action.handlePlayPause,
       };
     case "SET_ERROR":
       return {
