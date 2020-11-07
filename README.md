@@ -38,7 +38,7 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 
 ## Future Updates
 
-* ~~Seek - able to utilize the slider and seek to the current time in the song ~~
+* ~~Seek - able to utilize the slider and seek to the current time in the song~~
 * Ability to get access to whole playlist if over the allowed limit of 100 - already have this issue solved for Your Library
 * Shuffle Button in footer
 * ~~Repeat Button in footer~~
