@@ -35,7 +35,7 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 * Volume Controls fully functional - both slider and volume up and down buttons
 * Avatar button that links to user Spotify Profile and Logout
 * Progress Bar for Song - Seeking
-* Repeat Button
+* Repeat Button - one click turns on to continue playing next song, two clicks and repeats same song
 
 ## Future Updates
 

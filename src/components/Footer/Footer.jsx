@@ -18,12 +18,12 @@ import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
   const [
-    { song, choosenPlaylist, playing, restart, fullSong, volumeLvl },
+    { song, choosenPlaylist, playing, restart, fullSong, volumeLvl, myDevices },
     dispatch,
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [volume, setVolume] = useState(volumeLvl);
-  const [repeat, setRepeat] = useState(false);
+  const [repeat, setRepeat] = useState(0);
 
   useEffect(() => {
     setVolume(volumeLvl);
@@ -40,13 +40,16 @@ function Footer({ spotify }) {
       }, 1000);
     } else if (!playing && milliSeconds !== 0) {
       clearInterval(interval);
-    } else if (milliSeconds > fullSong && !repeat) {
+    } else if (milliSeconds >= fullSong && repeat === 0) {
       dispatch({
         type: "SET_PLAYING",
         playing: false,
       });
       setMilliSeconds(0);
-    } else if (milliSeconds > fullSong && repeat) {
+    } else if (milliSeconds >= fullSong && repeat === 1) {
+      setMilliSeconds(0);
+      nextSong();
+    } else if (milliSeconds >= fullSong && repeat === 2) {
       setMilliSeconds(0);
     }
     return () => clearInterval(interval);
@@ -184,31 +187,39 @@ function Footer({ spotify }) {
 
   const handleSeek = (event, value) => {
     let valueToSeek;
-    if (event) {
-      console.log({ event, value });
-      setMilliSeconds(value);
-      valueToSeek = value;
+    if (song && playing) {
+      if (event) {
+        setMilliSeconds(value);
+        valueToSeek = value;
+      }
+      spotify.seek(valueToSeek, (err, res) => {});
     }
-    spotify.seek(valueToSeek, (err, res) => {
-      console.log("SEEK", { err, res });
-    });
   };
 
   const handleRepeat = () => {
-    setRepeat(!repeat);
+    if (repeat === 0) {
+      setRepeat(1);
+      console.log("NEXT SONG ON");
+    } else if (repeat === 1) {
+      setRepeat(2);
+    } else {
+      setRepeat(0);
+    }
   };
 
   useEffect(() => {
-    if (repeat) {
-      spotify.setRepeat("track", (err, res) => {
-        console.log("REPEAT ON", { err, res });
-      });
-    } else {
-      spotify.setRepeat("off", (err, res) => {
-        console.log("REPEAT OFF", { err, res });
-      });
+    if (myDevices) {
+      if (repeat === 2) {
+        spotify.setRepeat("track", (err, res) => {
+          console.log("REPEAT ON", { err, res });
+        });
+      } else if (repeat === 0) {
+        spotify.setRepeat("off", (err, res) => {
+          console.log("REPEAT OFF", { err, res });
+        });
+      }
     }
-  }, [repeat, spotify]);
+  }, [repeat, spotify, myDevices]);
 
   return (
     <div className="footer">
@@ -267,7 +278,25 @@ function Footer({ spotify }) {
             }`}
             onClick={nextSong}
           />
-          {repeat ? (
+          {repeat === 0 && (
+            <RepeatTwoToneIcon
+              className={`footer_repeat`}
+              onClick={handleRepeat}
+            />
+          )}
+          {repeat === 1 && (
+            <RepeatTwoToneIcon
+              className={`footer_repeat ${repeat && "repeat_true"}`}
+              onClick={handleRepeat}
+            />
+          )}
+          {repeat === 2 && (
+            <RepeatOneIcon
+              className={`footer_repeat ${repeat && "repeat_true"}`}
+              onClick={handleRepeat}
+            />
+          )}
+          {/* {repeat ? (
             <RepeatOneIcon
               className={`footer_repeat ${repeat && "repeat_true"}`}
               onClick={handleRepeat}
@@ -277,7 +306,7 @@ function Footer({ spotify }) {
               className={`footer_repeat`}
               onClick={handleRepeat}
             />
-          )}
+          )} */}
         </div>
         <div className="slider">
           {song ? (
@@ -286,7 +315,7 @@ function Footer({ spotify }) {
             <div className="start_song">--:--</div>
           )}
           <Slider
-            max={fullSong}
+            max={fullSong - 1000}
             value={milliSeconds}
             onChange={handleSeek}
             step={1000}

@@ -119,7 +119,7 @@
 }
 
 .footer_shuffle:hover {
-  color: var(--music-color);
+  /* color: var(--music-color); */
   transform: scale(1.25) !important;
 }
 
@@ -139,7 +139,7 @@
 }
 
 .footer_repeat:hover {
-  color: var(--music-color);
+  /* color: var(--music-color); */
   transform: scale(1.25) !important;
 }
 
