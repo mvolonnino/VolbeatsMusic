@@ -34,7 +34,8 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 * Device Icon functional to show connected devices
 * Volume Controls fully functional - both slider and volume up and down buttons
 * Avatar button that links to user Spotify Profile and Logout
-  
+* Progress Bar for Song - Seeking
+* Repeat Button
 
 ## Future Updates
 
