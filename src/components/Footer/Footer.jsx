@@ -137,7 +137,7 @@ function Footer({ spotify }) {
             type: "SET_SONG",
             song: {
               track: upNextSong,
-              index: song.index === 0,
+              index: 0,
             },
           });
           dispatch({
