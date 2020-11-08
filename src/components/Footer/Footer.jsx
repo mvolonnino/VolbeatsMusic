@@ -18,7 +18,17 @@ import { useDataLayerValue } from "../../context/DataLayer";
 
 function Footer({ spotify }) {
   const [
-    { song, choosenPlaylist, playing, restart, fullSong, volumeLvl, myDevices },
+    {
+      song,
+      choosenPlaylist,
+      playing,
+      restart,
+      fullSong,
+      volumeLvl,
+      myDevices,
+      shuffleState,
+      setShuffleSong,
+    },
     dispatch,
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
@@ -84,26 +94,33 @@ function Footer({ spotify }) {
   };
 
   const nextSong = () => {
-    let upNextSong = {};
-    if (song) {
-      if (song?.index < choosenPlaylist?.tracks?.items.length - 1) {
-        upNextSong = Object.assign(
-          ...choosenPlaylist?.tracks?.items
-            .map((track) => track.track)
-            .filter((track, i) => i === song.index + 1)
-        );
-        dispatch({
-          type: "SET_SONG",
-          song: {
-            track: upNextSong,
-            index: song.index + 1,
-          },
-        });
-        dispatch({
-          type: "SET_RESTART",
-          restart: true,
-        });
-        playThisSong(upNextSong);
+    if (shuffleState) {
+      setShuffleSong();
+    } else {
+      let upNextSong = {};
+      if (song) {
+        if (
+          song?.index < choosenPlaylist?.tracks?.items.length - 1 &&
+          !shuffleState
+        ) {
+          upNextSong = Object.assign(
+            ...choosenPlaylist?.tracks?.items
+              .map((track) => track.track)
+              .filter((track, i) => i === song.index + 1)
+          );
+          dispatch({
+            type: "SET_SONG",
+            song: {
+              track: upNextSong,
+              index: song.index + 1,
+            },
+          });
+          dispatch({
+            type: "SET_RESTART",
+            restart: true,
+          });
+          playThisSong(upNextSong);
+        }
       }
     }
   };
@@ -212,7 +229,15 @@ function Footer({ spotify }) {
     }
   };
 
+  const handleShuffleState = () => {
+    dispatch({
+      type: "SET_SHUFFLE_STATE",
+      shuffleState: !shuffleState,
+    });
+  };
+
   useEffect(() => {
+    console.log("SHUFFLE state", { shuffleState });
     dispatch({
       type: "SET_HANDLE_PLAY_PAUSE",
       handlePlayPause: handlePlayPause,
@@ -232,7 +257,7 @@ function Footer({ spotify }) {
         });
       }
     }
-  }, [repeat, spotify, myDevices, dispatch]);
+  }, [repeat, spotify, myDevices, dispatch, shuffleState]);
 
   return (
     <div className="footer">
@@ -266,7 +291,10 @@ function Footer({ spotify }) {
       </div>
       <div className="progress">
         <div className={`footer_center ${!song && "no_song"}`}>
-          <ShuffleTwoToneIcon className="footer_shuffle" />
+          <ShuffleTwoToneIcon
+            className={`footer_shuffle ${shuffleState && "shuffle_on"}`}
+            onClick={handleShuffleState}
+          />
           <SkipPreviousTwoToneIcon
             className={`footer_prev ${song?.index === 0 && "no_song"}`}
             onClick={prevSong}
@@ -287,6 +315,7 @@ function Footer({ spotify }) {
           <SkipNextTwoToneIcon
             className={`footer_next ${
               song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
+              !shuffleState &&
               "no_song"
             }`}
             onClick={nextSong}

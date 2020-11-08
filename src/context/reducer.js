@@ -3,6 +3,7 @@ export const initialState = {
   user: null,
   myDevices: null,
   playlists: [],
+  songs: [],
   choosenPlaylist: null,
   userTracks: null,
   playing: false,
@@ -14,6 +15,8 @@ export const initialState = {
   volumeLvl: null,
   error: null,
   handlePlayPause: null,
+  shuffleState: false,
+  setShuffleSong: null,
 };
 
 const reducer = (state, action) => {
@@ -50,6 +53,11 @@ const reducer = (state, action) => {
         ...state,
         choosenPlaylist: action.choosenPlaylist,
       };
+    case "SET_SONGS":
+      return {
+        ...state,
+        songs: action.songs,
+      };
     case "SET_SONG":
       return {
         ...state,
@@ -84,6 +92,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         handlePlayPause: action.handlePlayPause,
+      };
+    case "SET_SHUFFLE_STATE":
+      return {
+        ...state,
+        shuffleState: action.shuffleState,
+      };
+    case "SET_SHUFFLE_SONG":
+      return {
+        ...state,
+        setShuffleSong: action.setShuffleSong,
       };
     case "SET_ERROR":
       return {

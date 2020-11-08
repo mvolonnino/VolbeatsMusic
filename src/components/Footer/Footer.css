@@ -76,6 +76,10 @@
   color: rgb(40, 40, 40) !important;
 }
 
+.shuffle_on {
+  color: var(--music-color) !important;
+}
+
 .footer_right {
   flex: 0.3;
   display: flex;

@@ -32,6 +32,18 @@ function App() {
         });
       });
 
+      // spotify
+      //   .getPlaylist("37i9dQZEVXcDizIFCfhpad", { limit: 30 })
+      //   .then((response) => {
+      //     dispatch({
+      //       type: "SET_CHOOSEN_PLAYLIST",
+      //       choosenPlaylist: response,
+      //     });
+      //   })
+      //   .catch((err) => {
+      //     console.log({ err });
+      //   });
+
       spotify
         .getMe()
         .then((user) => {
@@ -53,6 +65,10 @@ function App() {
               tracks: tracks,
             },
           });
+          dispatch({
+            type: "SET_CHOOSEN_PLAYLIST",
+            choosenPlaylist: tracks,
+          });
         })
         .catch((err) => {
           console.log({ err });
@@ -64,18 +80,6 @@ function App() {
           dispatch({
             type: "SET_PLAYLISTS",
             playlists: playlists,
-          });
-        })
-        .catch((err) => {
-          console.log({ err });
-        });
-
-      spotify
-        .getPlaylist("37i9dQZEVXcDizIFCfhpad", { limit: 30 })
-        .then((response) => {
-          dispatch({
-            type: "SET_CHOOSEN_PLAYLIST",
-            choosenPlaylist: response,
           });
         })
         .catch((err) => {

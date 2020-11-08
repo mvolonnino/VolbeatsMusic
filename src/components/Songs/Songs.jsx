@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -11,11 +11,13 @@ import SongRow from "../SongRow/SongRow";
 
 function Songs({ spotify }) {
   const [{ choosenPlaylist, song }, dispatch] = useDataLayerValue();
+  console.log({ choosenPlaylist });
 
   const setShuffleSong = () => {
-    var songs = choosenPlaylist?.tracks.items.map((item) => item);
+    console.log({ choosenPlaylist });
+    var songs = choosenPlaylist?.tracks?.items?.map((item) => item);
     console.log(songs);
-    var songIndex = Math.floor(Math.random() * songs.length);
+    var songIndex = Math.floor(Math.random() * songs?.length);
     console.log(songIndex);
     dispatch({
       type: "SET_SONG",
@@ -41,7 +43,7 @@ function Songs({ spotify }) {
           console.log({ r });
           dispatch({
             type: "SET_FULL_SONG",
-            fullSong: r.item.duration_ms,
+            fullSong: r?.item?.duration_ms,
           });
           dispatch({
             type: "SET_PLAYING",
@@ -54,6 +56,18 @@ function Songs({ spotify }) {
         });
       });
   };
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_CHOOSEN_PLAYLIST",
+      choosenPlaylist: choosenPlaylist,
+    });
+
+    dispatch({
+      type: "SET_SHUFFLE_SONG",
+      setShuffleSong: setShuffleSong,
+    });
+  }, [dispatch, choosenPlaylist]);
 
   console.log({ song });
   return (
