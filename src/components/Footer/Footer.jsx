@@ -122,6 +122,31 @@ function Footer({ spotify }) {
           playThisSong(upNextSong);
         }
       }
+      if (song) {
+        if (
+          song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
+          shuffleState === false &&
+          repeat === 1
+        ) {
+          upNextSong = Object.assign(
+            ...choosenPlaylist?.tracks?.items
+              .map((track) => track.track)
+              .filter((track, i) => i === 0)
+          );
+          dispatch({
+            type: "SET_SONG",
+            song: {
+              track: upNextSong,
+              index: song.index === 0,
+            },
+          });
+          dispatch({
+            type: "SET_RESTART",
+            restart: true,
+          });
+          playThisSong(upNextSong);
+        }
+      }
     }
   };
 
@@ -316,6 +341,7 @@ function Footer({ spotify }) {
             className={`footer_next ${
               song?.index === choosenPlaylist?.tracks?.items.length - 1 &&
               !shuffleState &&
+              repeat !== 1 &&
               "no_song"
             }`}
             onClick={nextSong}
