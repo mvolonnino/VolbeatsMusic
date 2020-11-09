@@ -4,7 +4,7 @@ import "./SidebarOption.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function SidebarOption({ spotify, uri, title, Icon }) {
-  const [{ userTracks, limit, offset }, dispatch] = useDataLayerValue();
+  const [{ userTracks }, dispatch] = useDataLayerValue();
 
   const dispatchPlaylist = () => {
     var playlistUri = uri.split(":")[2];

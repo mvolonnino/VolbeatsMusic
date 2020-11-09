@@ -271,15 +271,19 @@ function Footer({ spotify }) {
       if (repeat === 2) {
         spotify.setRepeat(
           "track",
-          { device_id: myDevices[0].id },
+          { device_id: myDevices[0]?.id },
           (err, res) => {
             console.log("REPEAT ON", { err, res });
           }
         );
       } else if (repeat === 0) {
-        spotify.setRepeat("off", { device_id: myDevices[0].id }, (err, res) => {
-          console.log("REPEAT OFF", { err, res });
-        });
+        spotify.setRepeat(
+          "off",
+          { device_id: myDevices[0]?.id },
+          (err, res) => {
+            console.log("REPEAT OFF", { err, res });
+          }
+        );
       }
     }
   }, [repeat, spotify, myDevices, dispatch, shuffleState]);

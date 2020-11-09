@@ -19,6 +19,10 @@ function App() {
     if (_token) {
       spotify.setAccessToken(_token);
 
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
       spotify.getMyDevices((err, res) => {
         if (err) throw err;
         console.log(res);
@@ -85,11 +89,6 @@ function App() {
         .catch((err) => {
           console.log({ err });
         });
-
-      dispatch({
-        type: "SET_TOKEN",
-        token: _token,
-      });
     }
   }, [dispatch, limit, offset]);
 
