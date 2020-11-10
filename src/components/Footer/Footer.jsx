@@ -24,7 +24,6 @@ function Footer({ spotify }) {
       choosenPlaylist,
       playing,
       restart,
-      fullSong,
       volumeLvl,
       myDevices,
       shuffleState,
@@ -218,10 +217,6 @@ function Footer({ spotify }) {
       .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
           dispatch({
-            type: "SET_FULL_SONG",
-            fullSong: song.duration_ms,
-          });
-          dispatch({
             type: "SET_PLAYING",
             playing: true,
           });
@@ -230,6 +225,17 @@ function Footer({ spotify }) {
           type: "SET_RESTART",
           restart: false,
         });
+      })
+      .catch((err) => {
+        if (err) {
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message: `Error Trying To Play ${song?.track?.name} - Try Again`,
+              open: true,
+            },
+          });
+        }
       });
   };
 

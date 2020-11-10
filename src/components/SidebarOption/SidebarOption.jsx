@@ -19,6 +19,13 @@ function SidebarOption({ spotify, uri, title, Icon }) {
       })
       .catch((err) => {
         console.log({ err });
+        dispatch({
+          type: "SET_ALERT_MESSAGE",
+          alertMessage: {
+            message: `Error Setting User's Playlist - Try Again`,
+            open: true,
+          },
+        });
       });
   };
 
@@ -44,6 +51,13 @@ function SidebarOption({ spotify, uri, title, Icon }) {
           })
           .catch((err) => {
             console.log({ err });
+            dispatch({
+              type: "SET_ALERT_MESSAGE",
+              alertMessage: {
+                message: `Error Fetching ${title} - Try Again`,
+                open: true,
+              },
+            });
           });
         break;
       case "Home":
@@ -57,6 +71,13 @@ function SidebarOption({ spotify, uri, title, Icon }) {
           })
           .catch((err) => {
             console.log({ err });
+            dispatch({
+              type: "SET_ALERT_MESSAGE",
+              alertMessage: {
+                message: `Error Fetching Discover Weekly - Try Again`,
+                open: true,
+              },
+            });
           });
         break;
       default:

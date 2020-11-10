@@ -45,7 +45,7 @@ function SongRow({ track, index, playSong, spotify }) {
 
   useEffect(() => {
     checkLikedSong();
-  }, [choosenPlaylist, dispatch, liked]);
+  }, [choosenPlaylist]);
 
   const pickSong = () => {
     console.log(track);

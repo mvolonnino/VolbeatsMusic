@@ -43,10 +43,6 @@ function Songs({ spotify }) {
           console.log({ r });
           if (r.is_playing) {
             dispatch({
-              type: "SET_FULL_SONG",
-              fullSong: r?.item?.duration_ms,
-            });
-            dispatch({
               type: "SET_PLAYING",
               playing: true,
             });

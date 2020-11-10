@@ -29,6 +29,13 @@ function Banner({ spotify }) {
       })
       .catch((err) => {
         console.log({ err });
+        dispatch({
+          type: "SET_ALERT_MESSAGE",
+          alertMessage: {
+            message: `Error Fetching User's Next 50 Songs - Try Again`,
+            open: true,
+          },
+        });
       });
   };
 
@@ -49,6 +56,13 @@ function Banner({ spotify }) {
       })
       .catch((err) => {
         console.log({ err });
+        dispatch({
+          type: "SET_ALERT_MESSAGE",
+          alertMessage: {
+            message: `Error Fetching User's Previous 50 Songs - Try Again`,
+            open: true,
+          },
+        });
       });
   };
 
@@ -57,7 +71,7 @@ function Banner({ spotify }) {
       type: "SET_CHOOSEN_PLAYLIST",
       choosenPlaylist: userTracks,
     });
-  }, [userTracks, dispatch]);
+  }, [userTracks, dispatch, choosenPlaylist]);
 
   return (
     <div className="banner">

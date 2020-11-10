@@ -10,7 +10,6 @@ export const initialState = {
   offset: 0,
   limit: 50,
   restart: null,
-  fullSong: 0,
   volumeLvl: null,
   alertMessage: null,
   handlePlayPause: null,
@@ -66,11 +65,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         offset: action.offset,
-      };
-    case "SET_FULL_SONG":
-      return {
-        ...state,
-        fullSong: action.fullSong,
       };
     case "SET_RESTART":
       return {

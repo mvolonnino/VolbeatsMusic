@@ -47,6 +47,13 @@ function App() {
         })
         .catch((err) => {
           console.log({ err });
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message: `Error Fetching User Data - Refresh Page`,
+              open: true,
+            },
+          });
         });
 
       spotify
@@ -65,6 +72,13 @@ function App() {
         })
         .catch((err) => {
           console.log({ err });
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message: `Error Fetching User Liked Songs - Refresh Page`,
+              open: true,
+            },
+          });
         });
 
       spotify
@@ -77,6 +91,13 @@ function App() {
         })
         .catch((err) => {
           console.log({ err });
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message: `Error Fetching User Playlists - Refresh Page`,
+              open: true,
+            },
+          });
         });
     }
   }, [dispatch, limit, offset]);
