@@ -40,7 +40,7 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 - Play Pause icon now functional next to selected or playing song
 - Shuffle Button in footer now shuffles next song to be played
 - Heart Icons work as for adding or removing from user liked tracks.
-- Toast for some 404 error handling. More to come
+- Toast for error handling and displaying errors to user.
 
 ## Future Updates
 
@@ -51,7 +51,7 @@ As of now functionality is at 95%. Every Playlist can be played that is in your 
 - ~~Repeat Button in footer~~
 - ~~Ability to ADD or REMOVE songs from Liked Library / Playlists~~
 - Search Feature to either search from your current playlist OR hopefully Spotify library of songs
-- Error Handling - have all errors in a catch, will then display them to user
+- ~~Error Handling - have all errors in a catch, will then display them to user~~
 
 ### Technologies Utilized
 
