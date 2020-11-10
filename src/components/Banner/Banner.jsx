@@ -84,7 +84,7 @@ function Banner({ spotify }) {
           <div className="banner_text">
             <strong>PLAYLIST</strong>
             <h2>{choosenPlaylist?.name}</h2>
-            <p>{choosenPlaylist?.description}</p>
+            <p>{choosenPlaylist?.description?.split(":")[0]}</p>
             <div className="banner_small">
               <strong>{choosenPlaylist?.owner?.display_name}</strong>
               <small>
