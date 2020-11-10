@@ -64,10 +64,7 @@ export default function Devices({ spotify }) {
     //     ],
     //     (err, res) => {
     //       if (err) {
-    //         dispatch({
-    //           type: "SET_ERROR",
-    //           error: err?.response,
-    //         });
+    //         console.log({ err })
     //       }
     //     }
     //   );

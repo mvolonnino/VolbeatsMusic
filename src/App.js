@@ -23,6 +23,7 @@ function App() {
         type: "SET_TOKEN",
         token: _token,
       });
+
       spotify.getMyDevices((err, res) => {
         if (err) throw err;
         console.log(res);
@@ -35,18 +36,6 @@ function App() {
           volumeLvl: res?.devices[0]?.volume_percent,
         });
       });
-
-      // spotify
-      //   .getPlaylist("37i9dQZEVXcDizIFCfhpad", { limit: 30 })
-      //   .then((response) => {
-      //     dispatch({
-      //       type: "SET_CHOOSEN_PLAYLIST",
-      //       choosenPlaylist: response,
-      //     });
-      //   })
-      //   .catch((err) => {
-      //     console.log({ err });
-      //   });
 
       spotify
         .getMe()

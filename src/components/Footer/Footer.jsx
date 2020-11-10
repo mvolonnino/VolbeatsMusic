@@ -15,6 +15,7 @@ import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 
 import "./Footer.css";
 import { useDataLayerValue } from "../../context/DataLayer";
+import Toast from "../Toast/Toast";
 
 function Footer({ spotify }) {
   const [
@@ -86,10 +87,6 @@ function Footer({ spotify }) {
       })
       .catch((err) => {
         console.log({ err });
-        dispatch({
-          type: "SET_ERROR",
-          error: err.response,
-        });
       });
   };
 
@@ -418,6 +415,7 @@ function Footer({ spotify }) {
           </Grid>
         </Grid>
       </div>
+      <Toast />
     </div>
   );
 }

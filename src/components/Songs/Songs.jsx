@@ -41,19 +41,24 @@ function Songs({ spotify }) {
       .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
           console.log({ r });
-          dispatch({
-            type: "SET_FULL_SONG",
-            fullSong: r?.item?.duration_ms,
-          });
-          dispatch({
-            type: "SET_PLAYING",
-            playing: true,
-          });
-          dispatch({
-            type: "SET_RESTART",
-            restart: false,
-          });
+          if (r.is_playing) {
+            dispatch({
+              type: "SET_FULL_SONG",
+              fullSong: r?.item?.duration_ms,
+            });
+            dispatch({
+              type: "SET_PLAYING",
+              playing: true,
+            });
+            dispatch({
+              type: "SET_RESTART",
+              restart: false,
+            });
+          }
         });
+      })
+      .catch((err) => {
+        console.log({ err });
       });
   };
 
@@ -62,7 +67,6 @@ function Songs({ spotify }) {
       type: "SET_CHOOSEN_PLAYLIST",
       choosenPlaylist: choosenPlaylist,
     });
-
     dispatch({
       type: "SET_SHUFFLE_SONG",
       setShuffleSong: setShuffleSong,

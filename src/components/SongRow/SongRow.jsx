@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./SongRow.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import { milliToMinsAndSecs } from "../../helpers/mtosecs";
+import { useEffect } from "react";
+import axios from "axios";
 
 function SongRow({ track, index, playSong, spotify }) {
   const [
-    { song, playing, myDevices, handlePlayPause },
+    { song, playing, handlePlayPause, token, choosenPlaylist },
     dispatch,
   ] = useDataLayerValue();
+  const [liked, setLiked] = useState(false);
 
-  // const device = myDevices
-  //   .map((device) => device)
-  //   .filter((device) => device.is_active === true);
-  // console.log({ device });
+  async function checkLikedSong() {
+    if (choosenPlaylist) {
+      try {
+        await axios
+          .get("https://api.spotify.com/v1/me/tracks/contains", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+            params: {
+              ids: track.uri.split(":")[2],
+            },
+          })
+          .then((res) => {
+            // console.log(track.name, { res });
+            if (res.data[0] === true) {
+              setLiked(true);
+            } else {
+              setLiked(false);
+            }
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkLikedSong();
+  }, [choosenPlaylist, dispatch, liked]);
 
   const pickSong = () => {
     console.log(track);
@@ -30,48 +60,45 @@ function SongRow({ track, index, playSong, spotify }) {
       type: "SET_RESTART",
       restart: true,
     });
-    dispatch({
-      type: "SET_FULL_SONG",
-      fullSong: track.duration_ms,
-    });
     console.log({ song });
-    if (myDevices[0]?.is_active) {
-      playSong(track.id);
-    } else {
-      spotify.play(
-        {
-          device_id: myDevices[0]?.id,
-          uris: [track.uri],
-        },
-        (err, res) => {
-          console.log({ err, res });
-          if (err) {
-            dispatch({
-              type: "SET_ERROR",
-              error: err.response,
-            });
-          }
-          spotify
-            .getMyCurrentPlayingTrack()
-            .then((r) => {
-              console.log({ r });
-              dispatch({
-                type: "SET_RESTART",
-                restart: false,
-              });
-              dispatch({
-                type: "SET_PLAYING",
-                playing: true,
-              });
-            })
-            .catch((err) => {
-              dispatch({
-                type: "SET_ERROR",
-                error: err.response,
-              });
-            });
+    playSong(track.id);
+  };
+
+  const handleLikeUnlike = () => {
+    const trackId = track.uri.split(":")[2];
+    console.log({ track, trackId, liked });
+    if (!liked) {
+      spotify.addToMySavedTracks({ ids: [trackId] }, (err, res) => {
+        console.log("LIKED SONG", { err, res });
+        if (!err) {
+          setLiked(true);
+          const message = `${track.name} added to your liked songs`;
+
+          console.log({ message });
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message,
+              open: true,
+            },
+          });
         }
-      );
+      });
+    } else if (liked) {
+      spotify.removeFromMySavedTracks({ ids: [trackId] }, (err, res) => {
+        console.log("UNLIKED SONG", { err, res });
+        if (!err) {
+          setLiked(false);
+          const message = `${track.name} removed from your liked songs`;
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message,
+              open: true,
+            },
+          });
+        }
+      });
     }
   };
 
@@ -108,7 +135,6 @@ function SongRow({ track, index, playSong, spotify }) {
       ) : (
         <p className="index">{index + 1}</p>
       )}
-
       <img
         className="album_art"
         src={track?.album?.images[0]?.url}
@@ -127,7 +153,20 @@ function SongRow({ track, index, playSong, spotify }) {
           <small>({track?.album?.release_date})</small>
         </p>
       </div>
-      <p className="song_duration">{milliToMinsAndSecs(track?.duration_ms)}</p>
+      <div className="song_features">
+        {liked ? (
+          <FavoriteIcon className="heart_song" onClick={handleLikeUnlike} />
+        ) : (
+          <FavoriteBorderIcon
+            className={`heart_song ${!liked && "not_liked"}`}
+            onClick={handleLikeUnlike}
+          />
+        )}
+
+        <p className="song_duration">
+          {milliToMinsAndSecs(track?.duration_ms)}
+        </p>
+      </div>
     </div>
   );
 }

@@ -103,6 +103,7 @@
   height: 60px;
   width: 60px;
   margin-right: 20px;
+  border-radius: 3px;
   transition: transform 200ms ease-in-out;
 }
 

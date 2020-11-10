@@ -4,7 +4,7 @@ import "./SidebarOption.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function SidebarOption({ spotify, uri, title, Icon }) {
-  const [{ userTracks }, dispatch] = useDataLayerValue();
+  const [{ limit, offset }, dispatch] = useDataLayerValue();
 
   const dispatchPlaylist = () => {
     var playlistUri = uri.split(":")[2];
@@ -28,10 +28,23 @@ function SidebarOption({ spotify, uri, title, Icon }) {
     switch (title) {
       case "Your Library":
         console.log("your library hit");
-        dispatch({
-          type: "SET_CHOOSEN_PLAYLIST",
-          choosenPlaylist: userTracks,
-        });
+        spotify
+          .getMySavedTracks({ limit: limit, offset: offset })
+          .then((tracks) => {
+            dispatch({
+              type: "SET_USER_TRACKS",
+              userTracks: {
+                tracks: tracks,
+              },
+            });
+            dispatch({
+              type: "SET_CHOOSEN_PLAYLIST",
+              choosenPlaylist: tracks,
+            });
+          })
+          .catch((err) => {
+            console.log({ err });
+          });
         break;
       case "Home":
         spotify
