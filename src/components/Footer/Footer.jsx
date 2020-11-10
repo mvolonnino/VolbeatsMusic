@@ -78,7 +78,19 @@ function Footer({ spotify }) {
             playing: false,
           });
         } else {
-          spotify.play();
+          spotify.play((err, res) => {
+            console.log({ err, res });
+            if (err.status === 404) {
+              const message = `No Active Devices Found - Open up Spotify App & Refresh Page`;
+              dispatch({
+                type: "SET_ALERT_MESSAGE",
+                alertMessage: {
+                  message,
+                  open: true,
+                },
+              });
+            }
+          });
           dispatch({
             type: "SET_PLAYING",
             playing: true,

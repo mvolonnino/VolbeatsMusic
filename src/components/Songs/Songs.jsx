@@ -59,6 +59,26 @@ function Songs({ spotify }) {
       })
       .catch((err) => {
         console.log({ err });
+
+        if (err.status === 404) {
+          const message = `No Active Devices Found - Open up Spotify App & Refresh Page`;
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message,
+              open: true,
+            },
+          });
+        } else if (err.status === 429) {
+          const message = `API Rate Limit Hit - Try Again In A Few Seconds`;
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message,
+              open: true,
+            },
+          });
+        }
       });
   };
 

@@ -104,17 +104,22 @@ export default function Devices({ spotify }) {
           <MenuItem key={device.id}>{device?.name}</MenuItem>
         ))}
         {myDevices?.length === 0 && (
-          <MenuItem onClick={getMyDevice}>
-            <Link
-              href={user?.external_urls?.spotify}
-              target="_blank"
-              rel="noreferrer"
-              variant="body2"
-              onClick={handleClose}
-            >
-              Click Here To Open Spotify
-            </Link>
-          </MenuItem>
+          <>
+            <MenuItem onClick={getMyDevice}>
+              <Link
+                href={user?.external_urls?.spotify}
+                target="_blank"
+                rel="noreferrer"
+                variant="body2"
+                onClick={handleClose}
+              >
+                Click Here To Open Spotify
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              Or Open Spotify App On Your Computer & Refresh Page
+            </MenuItem>
+          </>
         )}
       </Menu>
     </div>

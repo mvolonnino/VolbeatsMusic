@@ -6,7 +6,6 @@ import "./Toast.css";
 
 function Toast() {
   const [{ alertMessage }, dispatch] = useDataLayerValue();
-  console.log({ alertMessage });
 
   const handleClose = () => {
     dispatch({
@@ -25,7 +24,7 @@ function Toast() {
         open={alertMessage?.open}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={2500}
+        autoHideDuration={3000}
       />
     </div>
   );
