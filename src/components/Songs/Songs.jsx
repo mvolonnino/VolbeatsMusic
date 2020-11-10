@@ -59,23 +59,42 @@ function Songs({ spotify }) {
       })
       .catch((err) => {
         console.log({ err });
-
-        if (err.status === 404) {
+        if (err?.status === 404) {
           const message = `No Active Devices Found - Open up Spotify App & Refresh Page`;
           dispatch({
             type: "SET_ALERT_MESSAGE",
             alertMessage: {
               message,
               open: true,
+              alert: "red",
             },
           });
-        } else if (err.status === 429) {
+          dispatch({
+            type: "SET_MY_DEVICES",
+            myDevices: [],
+          });
+        } else if (err?.status === 429) {
           const message = `API Rate Limit Hit - Try Again In A Few Seconds`;
           dispatch({
             type: "SET_ALERT_MESSAGE",
             alertMessage: {
               message,
               open: true,
+              alert: "red",
+            },
+          });
+          dispatch({
+            type: "SET_SONG",
+            song: null,
+          });
+        } else if (err?.status === 401) {
+          const message = `Authentication Token Expired - Refresh or Re Login`;
+          dispatch({
+            type: "SET_ALERT_MESSAGE",
+            alertMessage: {
+              message,
+              open: true,
+              alert: "red",
             },
           });
         }

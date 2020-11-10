@@ -43,28 +43,28 @@ function Footer({ spotify }) {
       setMilliSeconds(0);
     }
     if (
-      (playing && milliSeconds < fullSong) ||
-      (playing && repeat && milliSeconds < fullSong)
+      (playing && milliSeconds < song?.track?.duration_ms) ||
+      (playing && repeat && milliSeconds < song?.track?.duration_ms)
     ) {
       interval = setInterval(() => {
         setMilliSeconds((milliSeconds) => milliSeconds + 1000);
       }, 1000);
     } else if (!playing && milliSeconds !== 0) {
       clearInterval(interval);
-    } else if (milliSeconds >= fullSong && repeat === 0) {
+    } else if (milliSeconds >= song?.track?.duration_ms && repeat === 0) {
       dispatch({
         type: "SET_PLAYING",
         playing: false,
       });
       setMilliSeconds(0);
-    } else if (milliSeconds >= fullSong && repeat === 1) {
+    } else if (milliSeconds >= song?.track?.duration_ms && repeat === 1) {
       setMilliSeconds(0);
       nextSong();
-    } else if (milliSeconds >= fullSong && repeat === 2) {
+    } else if (milliSeconds >= song?.track?.duration_ms && repeat === 2) {
       setMilliSeconds(0);
     }
     return () => clearInterval(interval);
-  }, [playing, milliSeconds, restart, dispatch, fullSong, volumeLvl, repeat]);
+  }, [playing, milliSeconds, restart, dispatch, song, volumeLvl, repeat]);
 
   const handlePlayPause = () => {
     spotify
@@ -80,13 +80,38 @@ function Footer({ spotify }) {
         } else {
           spotify.play((err, res) => {
             console.log({ err, res });
-            if (err.status === 404) {
+            if (err?.status === 404) {
               const message = `No Active Devices Found - Open up Spotify App & Refresh Page`;
               dispatch({
                 type: "SET_ALERT_MESSAGE",
                 alertMessage: {
                   message,
                   open: true,
+                  alert: "red",
+                },
+              });
+              dispatch({
+                type: "SET_MY_DEVICES",
+                myDevices: [],
+              });
+            } else if (err?.status === 429) {
+              const message = `API Rate Limit Hit - Try Again In A Few Seconds`;
+              dispatch({
+                type: "SET_ALERT_MESSAGE",
+                alertMessage: {
+                  message,
+                  open: true,
+                  alert: "red",
+                },
+              });
+            } else if (err?.status === 401) {
+              const message = `Authentication Token Expired - Refresh or Re Login`;
+              dispatch({
+                type: "SET_ALERT_MESSAGE",
+                alertMessage: {
+                  message,
+                  open: true,
+                  alert: "red",
                 },
               });
             }
@@ -385,13 +410,15 @@ function Footer({ spotify }) {
             <div className="start_song">--:--</div>
           )}
           <Slider
-            max={fullSong - 1000}
+            max={song?.track?.duration_ms - 1000}
             value={milliSeconds}
             onChange={handleSeek}
             step={1000}
           />
           {song && (
-            <div className="song_length">{milliToMinsAndSecs(fullSong)}</div>
+            <div className="song_length">
+              {milliToMinsAndSecs(song?.track?.duration_ms)}
+            </div>
           )}
         </div>
       </div>

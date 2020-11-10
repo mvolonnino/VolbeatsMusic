@@ -6,6 +6,7 @@ import "./Toast.css";
 
 function Toast() {
   const [{ alertMessage }, dispatch] = useDataLayerValue();
+  // console.log({ alertMessage });
 
   const handleClose = () => {
     dispatch({
@@ -18,13 +19,13 @@ function Toast() {
   };
 
   return (
-    <div className="toast">
+    <div className={`toast ${alertMessage?.alert === "red" && "alert"}`}>
       <Snackbar
         message={alertMessage?.message}
         open={alertMessage?.open}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={3000}
+        autoHideDuration={4000}
       />
     </div>
   );

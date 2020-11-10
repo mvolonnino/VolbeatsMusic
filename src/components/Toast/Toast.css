@@ -1,4 +1,16 @@
 .MuiSnackbar-root {
   margin-left: 20px;
   margin-bottom: 75px;
+  /* background-color: var(--music-background-color) !important; */
+}
+
+.toast * .MuiPaper-root {
+  background-color: #52b2bf !important;
+  /* color: rgb(0, 0, 0) !important; */
+  font-weight: 700;
+  justify-content: center;
+}
+
+.alert * .MuiPaper-root {
+  background-color: var(--music-color) !important;
 }
