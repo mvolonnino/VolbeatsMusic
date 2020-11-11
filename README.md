@@ -26,7 +26,7 @@ Uses Spotify's authentication to be able to gain access to the user's Spotify pr
 
 ## Functionality
 
-As of now functionality is at 95%. Every Playlist can be played that is in your Playlists section with every song being selected (with a limit off first 100 songs for right now), your entire liked library of songs, and Discover Weekly playlist located in Home section.
+Every Playlist can be played and looked through, your entire liked library of songs, and Discover Weekly playlist located in Home section. You can set shuffle, set repeat once to continue playing next song after the song selected has finished, or set repeat twice, which will repeat current selected song. Seek bar works to seek to a specific part of song, and user can also adjust volume.
 
 **FUNCTIONALITY THAT WORKS**
 
