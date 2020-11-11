@@ -63,6 +63,7 @@ function App() {
             type: "SET_USER_TRACKS",
             userTracks: {
               tracks: tracks,
+              runCheckedSongs: true,
             },
           });
           dispatch({

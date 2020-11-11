@@ -12,7 +12,7 @@ function Banner({ spotify }) {
     dispatch,
   ] = useDataLayerValue();
 
-  const getNext50Songs = () => {
+  const getNextSaved50Songs = () => {
     spotify
       .getMySavedTracks({ offset: offset + limit, limit: limit })
       .then((tracks) => {
@@ -39,7 +39,7 @@ function Banner({ spotify }) {
       });
   };
 
-  const getLast50Songs = () => {
+  const getLastSaved50Songs = () => {
     spotify
       .getMySavedTracks({ offset: offset - limit, limit: limit })
       .then((tracks) => {
@@ -66,6 +66,49 @@ function Banner({ spotify }) {
       });
   };
 
+  const getNextPlaylist50Songs = () => {
+    var playlistUri = choosenPlaylist?.uri.split(":")[2];
+
+    spotify
+      .getPlaylistTracks(playlistUri, { limit: limit, offset: offset + limit })
+      .then((tracks) => {
+        dispatch({
+          type: "SET_OFFSET",
+          offset: offset + limit,
+        });
+        dispatch({
+          type: "SET_CHOOSEN_PLAYLIST",
+          choosenPlaylist: {
+            ...choosenPlaylist,
+            runCheckedSongs: true,
+            tracks: tracks,
+          },
+        });
+      });
+  };
+
+  const getLastPlaylist50Songs = () => {
+    var playlistUri = choosenPlaylist?.uri.split(":")[2];
+
+    spotify
+      .getPlaylistTracks(playlistUri, { limit: limit, offset: offset - limit })
+      .then((tracks) => {
+        console.log("TRACKS", { tracks });
+        dispatch({
+          type: "SET_OFFSET",
+          offset: offset - limit,
+        });
+        dispatch({
+          type: "SET_CHOOSEN_PLAYLIST",
+          choosenPlaylist: {
+            ...choosenPlaylist,
+            runCheckedSongs: true,
+            tracks: tracks,
+          },
+        });
+      });
+  };
+
   useEffect(() => {
     dispatch({
       type: "SET_CHOOSEN_PLAYLIST",
@@ -84,12 +127,40 @@ function Banner({ spotify }) {
           <div className="banner_text">
             <strong>PLAYLIST</strong>
             <h2>{choosenPlaylist?.name}</h2>
-            <p>{choosenPlaylist?.description?.split(":")[0]}</p>
+            <p>{choosenPlaylist?.description?.split("<")[0]}</p>
             <div className="banner_small">
               <strong>{choosenPlaylist?.owner?.display_name}</strong>
               <small>
-                {` • ${choosenPlaylist?.followers?.total} like • ${choosenPlaylist?.tracks?.total} songs`}
+                {` • ${
+                  choosenPlaylist?.followers?.total
+                } likes • Showing ${offset} - ${
+                  (offset + limit < choosenPlaylist?.tracks?.total &&
+                    offset + limit) ||
+                  choosenPlaylist?.tracks?.total
+                } out of ${choosenPlaylist?.tracks?.total} songs`}
               </small>
+            </div>
+            <div className="arrow_icons">
+              {offset > 0 ? (
+                <div className="last50">
+                  <ArrowBackIosTwoToneIcon onClick={getLastPlaylist50Songs} />
+                </div>
+              ) : (
+                <div className="beginning">
+                  <ArrowBackIosTwoToneIcon />
+                </div>
+              )}
+              {offset < choosenPlaylist?.tracks?.total - limit ? (
+                <div className="next50">
+                  <ArrowForwardIosTwoToneIcon
+                    onClick={getNextPlaylist50Songs}
+                  />
+                </div>
+              ) : (
+                <div className="beginning">
+                  <ArrowForwardIosTwoToneIcon />
+                </div>
+              )}
             </div>
           </div>
         </>
@@ -97,14 +168,15 @@ function Banner({ spotify }) {
         <>
           <img src={yourMusic} alt="Music Logo" />
           <div className="banner_text">
-            <strong>{`Showing ${offset} - ${offset + limit} out of ${
-              choosenPlaylist?.tracks?.total
-            } songs`}</strong>
+            <strong>PLAYLIST</strong>
             <h2>YOUR LIBRARY</h2>
+            <p className="showing_offset">{`Showing ${offset} - ${
+              offset + limit
+            } out of ${choosenPlaylist?.tracks?.total} songs`}</p>
             <div className="arrow_icons">
               {offset > 0 ? (
                 <div className="last50">
-                  <ArrowBackIosTwoToneIcon onClick={getLast50Songs} />
+                  <ArrowBackIosTwoToneIcon onClick={getLastSaved50Songs} />
                 </div>
               ) : (
                 <div className="beginning">
@@ -112,7 +184,7 @@ function Banner({ spotify }) {
                 </div>
               )}
               <div className="next50">
-                <ArrowForwardIosTwoToneIcon onClick={getNext50Songs} />
+                <ArrowForwardIosTwoToneIcon onClick={getNextSaved50Songs} />
               </div>
             </div>
           </div>

@@ -7,48 +7,12 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { milliToMinsAndSecs } from "../../helpers/mtosecs";
-import { useEffect } from "react";
-import axios from "axios";
 
-function SongRow({ track, index, playSong, spotify }) {
-  const [
-    { song, playing, handlePlayPause, token, choosenPlaylist },
-    dispatch,
-  ] = useDataLayerValue();
-  const [liked, setLiked] = useState(false);
-
-  async function checkLikedSong() {
-    if (choosenPlaylist) {
-      try {
-        await axios
-          .get("https://api.spotify.com/v1/me/tracks/contains", {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-            params: {
-              ids: track.uri.split(":")[2],
-            },
-          })
-          .then((res) => {
-            // console.log(track.name, { res });
-            if (res.data[0] === true) {
-              setLiked(true);
-            } else {
-              setLiked(false);
-            }
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-
-  useEffect(() => {
-    checkLikedSong();
-  }, [choosenPlaylist]);
+function SongRow({ track, index, playSong, spotify, likedSong }) {
+  const [{ song, playing, handlePlayPause }, dispatch] = useDataLayerValue();
+  const [liked, setLiked] = useState(likedSong[0]);
 
   const pickSong = () => {
-    console.log(track);
     dispatch({
       type: "SET_SONG",
       song: {
@@ -60,20 +24,17 @@ function SongRow({ track, index, playSong, spotify }) {
       type: "SET_RESTART",
       restart: true,
     });
-    console.log({ song });
     playSong(track.id);
   };
 
   const handleLikeUnlike = () => {
     const trackId = track.uri.split(":")[2];
-    console.log({ track, trackId, liked });
     if (!liked) {
       spotify.addToMySavedTracks({ ids: [trackId] }, (err, res) => {
         console.log("LIKED SONG", { err, res });
         if (!err) {
           setLiked(true);
           const message = `${track.name} added to your liked songs`;
-
           console.log({ message });
           dispatch({
             type: "SET_ALERT_MESSAGE",
@@ -86,7 +47,6 @@ function SongRow({ track, index, playSong, spotify }) {
       });
     } else if (liked) {
       spotify.removeFromMySavedTracks({ ids: [trackId] }, (err, res) => {
-        console.log("UNLIKED SONG", { err, res });
         if (!err) {
           setLiked(false);
           const message = `${track.name} removed from your liked songs`;

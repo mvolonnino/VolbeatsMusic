@@ -7,6 +7,10 @@ function SidebarOption({ spotify, uri, title, Icon }) {
   const [{ limit, offset }, dispatch] = useDataLayerValue();
 
   const dispatchPlaylist = () => {
+    dispatch({
+      type: "SET_OFFSET",
+      offset: 0,
+    });
     var playlistUri = uri.split(":")[2];
 
     spotify
@@ -16,6 +20,18 @@ function SidebarOption({ spotify, uri, title, Icon }) {
           type: "SET_CHOOSEN_PLAYLIST",
           choosenPlaylist: playlist,
         });
+        spotify
+          .getPlaylistTracks(playlistUri, { limit: limit, offset: 0 })
+          .then((tracks) => {
+            dispatch({
+              type: "SET_CHOOSEN_PLAYLIST",
+              choosenPlaylist: {
+                ...playlist,
+                runCheckedSongs: true,
+                tracks: tracks,
+              },
+            });
+          });
       })
       .catch((err) => {
         console.log({ err });
@@ -31,17 +47,20 @@ function SidebarOption({ spotify, uri, title, Icon }) {
 
   const getUserTracks = () => {
     console.log({ title });
-
+    dispatch({
+      type: "SET_OFFSET",
+      offset: 0,
+    });
     switch (title) {
       case "Your Library":
-        console.log("your library hit");
         spotify
-          .getMySavedTracks({ limit: limit, offset: offset })
+          .getMySavedTracks({ limit: limit, offset: 0 })
           .then((tracks) => {
             dispatch({
               type: "SET_USER_TRACKS",
               userTracks: {
                 tracks: tracks,
+                runCheckedSongs: true,
               },
             });
             dispatch({
@@ -66,7 +85,10 @@ function SidebarOption({ spotify, uri, title, Icon }) {
           .then((response) => {
             dispatch({
               type: "SET_CHOOSEN_PLAYLIST",
-              choosenPlaylist: response,
+              choosenPlaylist: {
+                ...response,
+                runCheckedSongs: true,
+              },
             });
           })
           .catch((err) => {

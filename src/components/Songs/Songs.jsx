@@ -1,24 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import TimerIcon from "@material-ui/icons/Timer";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
+import axios from "axios";
 
 import "./Songs.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import SongRow from "../SongRow/SongRow";
 
 function Songs({ spotify }) {
-  const [{ choosenPlaylist, song }, dispatch] = useDataLayerValue();
-  console.log({ choosenPlaylist });
+  const [{ choosenPlaylist, song, token }, dispatch] = useDataLayerValue();
+  const [likedArray, setLikedArray] = useState([]);
 
+  async function checkLikedSong(songIds) {
+    if (choosenPlaylist) {
+      try {
+        await axios
+          .get("https://api.spotify.com/v1/me/tracks/contains", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+            params: {
+              ids: songIds,
+            },
+          })
+          .then((res) => {
+            setLikedArray(res.data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
   const setShuffleSong = () => {
-    console.log({ choosenPlaylist });
     var songs = choosenPlaylist?.tracks?.items?.map((item) => item);
-    console.log(songs);
     var songIndex = Math.floor(Math.random() * songs?.length);
-    console.log(songIndex);
     dispatch({
       type: "SET_SONG",
       song: {
@@ -40,7 +58,6 @@ function Songs({ spotify }) {
       })
       .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
-          console.log({ r });
           if (r.is_playing) {
             dispatch({
               type: "SET_PLAYING",
@@ -98,6 +115,14 @@ function Songs({ spotify }) {
   };
 
   useEffect(() => {
+    if (choosenPlaylist?.runCheckedSongs) {
+      setLikedArray([]);
+      var songIds = choosenPlaylist?.tracks?.items
+        .map((item) => item.track.uri.split(":")[2])
+        .join(",");
+      checkLikedSong(songIds);
+    }
+
     dispatch({
       type: "SET_CHOOSEN_PLAYLIST",
       choosenPlaylist: choosenPlaylist,
@@ -130,15 +155,22 @@ function Songs({ spotify }) {
       </div>
       <hr />
       {/* List of songs */}
-      {choosenPlaylist?.tracks.items.map((item, i) => (
-        <SongRow
-          track={item.track}
-          index={i}
-          key={i}
-          spotify={spotify}
-          playSong={playSong}
-        />
-      ))}
+      {likedArray.length > 0 &&
+        choosenPlaylist?.tracks?.items.map((item, i) => {
+          return (
+            <SongRow
+              track={item.track}
+              index={i}
+              likedSong={likedArray.filter(
+                (likedSong, index) =>
+                  (index === i && likedSong) || (index === i && !likedSong)
+              )}
+              key={i}
+              spotify={spotify}
+              playSong={playSong}
+            />
+          );
+        })}
     </div>
   );
 }
