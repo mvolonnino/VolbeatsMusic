@@ -1,7 +1,6 @@
 .songs {
   z-index: -1;
   width: 100%;
-  margin-left: 5px;
 }
 
 .songs_icons {
@@ -52,12 +51,8 @@
   transition: background-color 200ms ease-in-out;
   z-index: 100;
   margin-left: -5px;
-  margin-right: -15px;
 }
 
-.sticky_table > .duration {
-  margin-right: 60px;
-}
 .sticky_table > .hash {
   margin-left: 40px;
 }
