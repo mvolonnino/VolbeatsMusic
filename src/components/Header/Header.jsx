@@ -68,7 +68,7 @@ function Header({ parentPosition }) {
       </div>
       <div className="header_right">
         <div className="avatar">
-          <Avatar src={user?.images[0].url} alt={user?.display_name} />
+          <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
         </div>
         <Dropdown />
       </div>

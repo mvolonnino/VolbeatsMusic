@@ -13,7 +13,7 @@ export default function useScrollBarPosition() {
     }
     const currentRef = ref.current.addEventListener("scroll", getTopPosition);
     getTopPosition();
-    return () => currentRef.removeEventListener("scroll", getTopPosition);
+    return () => currentRef?.removeEventListener("scroll", getTopPosition);
   }, []);
 
   return [ref, top];
