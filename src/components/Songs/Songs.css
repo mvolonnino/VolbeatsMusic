@@ -47,7 +47,7 @@
   align-items: center;
   position: sticky;
   top: 100px;
-  background-color: rgb(50, 50, 50);
+  background-color: #29585e;
   transition: background-color 200ms ease-in-out;
   z-index: 100;
   margin-left: -5px;

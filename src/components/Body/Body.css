@@ -1,6 +1,6 @@
 .body {
   flex: 0.8;
-  background: linear-gradient(#52b2bf, rgba(0, 0, 0) 40%);
+  background: linear-gradient(#52b2bf, rgba(0, 0, 0));
   color: white;
   /* padding: 30px; */
   height: 90vh;

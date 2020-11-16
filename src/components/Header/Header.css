@@ -9,7 +9,7 @@
 
 .showHeader {
   display: flex;
-  background-color: rgb(40, 40, 40);
+  background-color: #1b393d;
   transition: background-color 500ms ease-in-out;
   padding: 20px;
   height: 60px;
