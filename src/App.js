@@ -64,6 +64,7 @@ function App() {
             userTracks: {
               tracks: tracks,
               runCheckedSongs: true,
+              name: "Your Library",
             },
           });
           dispatch({

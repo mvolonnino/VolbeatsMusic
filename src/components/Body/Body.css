@@ -1,8 +1,8 @@
 .body {
   flex: 0.8;
-  background: linear-gradient(#52b2bf, rgba(0, 0, 0));
+  background: linear-gradient(#52b2bf, rgba(0, 0, 0) 40%);
   color: white;
-  padding: 30px;
+  /* padding: 30px; */
   height: 90vh;
   overflow: scroll;
 }

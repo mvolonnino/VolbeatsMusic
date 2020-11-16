@@ -10,9 +10,10 @@ import "./Songs.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 import SongRow from "../SongRow/SongRow";
 
-function Songs({ spotify }) {
+function Songs({ spotify, parentPosition }) {
   const [{ choosenPlaylist, song, token }, dispatch] = useDataLayerValue();
   const [likedArray, setLikedArray] = useState([]);
+  const [stickyTable, setStickyTable] = useState(false);
 
   async function checkLikedSong(songIds) {
     if (choosenPlaylist) {
@@ -56,8 +57,9 @@ function Songs({ spotify }) {
       .play({
         uris: [`spotify:track:${id}`],
       })
-      .then((res) => {
+      .then(() => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
+          console.log({ r });
           if (r.is_playing) {
             dispatch({
               type: "SET_PLAYING",
@@ -115,6 +117,18 @@ function Songs({ spotify }) {
   };
 
   useEffect(() => {
+    if (parentPosition > 410) {
+      if (!stickyTable) {
+        setStickyTable(true);
+      }
+    } else if (parentPosition <= 410) {
+      if (stickyTable) {
+        setStickyTable(false);
+      }
+    }
+  }, [parentPosition]);
+
+  useEffect(() => {
     if (choosenPlaylist?.runCheckedSongs) {
       setLikedArray([]);
       var songIds = choosenPlaylist?.tracks?.items
@@ -131,6 +145,10 @@ function Songs({ spotify }) {
       type: "SET_SHUFFLE_SONG",
       setShuffleSong: setShuffleSong,
     });
+    dispatch({
+      type: "SET_PLAY_SONG",
+      playSong: playSong,
+    });
   }, [dispatch, choosenPlaylist]);
 
   console.log({ song });
@@ -144,7 +162,7 @@ function Songs({ spotify }) {
         <FavoriteIcon className="favorite" fontSize="large" />
         <MoreHorizIcon className="more" />
       </div>
-      <div className="table">
+      <div className={`${stickyTable ? "sticky_table" : "table"}`}>
         <small className="hash">
           <FormatListNumberedIcon />
         </small>

@@ -10,7 +10,7 @@
 
 .song_row:hover {
   cursor: pointer;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(26, 26, 26);
   opacity: 0.8;
   border-radius: 10px;
   color: var(--music-background-color);
@@ -21,13 +21,14 @@
 
 .song_row:hover .heart_song {
   display: inline-block !important;
+  transition: color 200ms ease-in;
 }
 .choosen_song {
   color: var(--music-color);
 }
 
 .choosen_row {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(20, 20, 20, 0.8);
   border-radius: 10px;
 }
 
@@ -102,11 +103,18 @@
   /* display: none !important; */
   margin-left: auto;
   margin-right: 15px;
+  color: white !important;
+  transition: color 200ms ease-out;
 }
 
 .heart_song:hover {
   color: var(--music-color) !important;
   transition: color 200ms ease-out;
+}
+
+.heart_song:active {
+  transition: transform 100ms ease-in-out;
+  transform: scale(1.5);
 }
 
 .not_liked {

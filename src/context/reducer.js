@@ -15,6 +15,7 @@ export const initialState = {
   handlePlayPause: null,
   shuffleState: false,
   setShuffleSong: null,
+  playSong: null,
 };
 
 const reducer = (state, action) => {
@@ -90,6 +91,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         setShuffleSong: action.setShuffleSong,
+      };
+    case "SET_PLAY_SONG":
+      return {
+        ...state,
+        playSong: action.playSong,
       };
     case "SET_ALERT_MESSAGE":
       return {

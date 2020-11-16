@@ -1,7 +1,43 @@
 .header {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  position: sticky;
+  top: 0;
+}
+
+.showHeader {
+  display: flex;
+  background-color: rgb(40, 40, 40);
+  transition: background-color 500ms ease-in-out;
+  padding: 20px;
+  height: 60px;
+  z-index: 100;
+}
+
+.header_change {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  flex: 0.5;
+}
+
+.play_btn {
+  font-size: 60px !important;
+  color: var(--music-color) !important;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.play_btn:hover {
+  color: var(--music-background-color) !important;
+  transition: color 200ms ease-in-out;
+  transform: scale(1.08);
+}
+
+.playlist_name {
+  font-size: 24px;
 }
 
 .header_left {
@@ -23,6 +59,7 @@
   border: none;
   width: 100%;
   outline: none;
+  height: 20px;
 }
 
 .header_left > input:active,

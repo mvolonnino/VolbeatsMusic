@@ -1,12 +1,13 @@
 .sidebar {
-  height: 94vh;
+  height: 90vh;
   flex: 0.2;
-  background-color: black;
+  background: black;
   color: white;
   min-width: 230px;
   padding-left: 10px;
   padding-right: 10px;
   overflow: scroll;
+  padding-bottom: 30px;
 }
 
 /* hide scrollbar for Chrome, Safari, Opera */

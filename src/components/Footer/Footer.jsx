@@ -78,7 +78,6 @@ function Footer({ spotify }) {
           });
         } else {
           spotify.play((err, res) => {
-            console.log({ err, res });
             if (err?.status === 404) {
               const message = `No Active Devices Found - Open up Spotify App & Refresh Page`;
               dispatch({
@@ -214,16 +213,19 @@ function Footer({ spotify }) {
       .play({
         uris: [song?.uri],
       })
-      .then((res) => {
+      .then(() => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
-          dispatch({
-            type: "SET_PLAYING",
-            playing: true,
-          });
-        });
-        dispatch({
-          type: "SET_RESTART",
-          restart: false,
+          console.log({ r });
+          if (r.is_playing) {
+            dispatch({
+              type: "SET_PLAYING",
+              playing: true,
+            });
+            dispatch({
+              type: "SET_RESTART",
+              restart: false,
+            });
+          }
         });
       })
       .catch((err) => {

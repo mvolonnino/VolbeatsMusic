@@ -4,7 +4,7 @@ import "./SidebarOption.css";
 import { useDataLayerValue } from "../../context/DataLayer";
 
 function SidebarOption({ spotify, uri, title, Icon }) {
-  const [{ limit, offset }, dispatch] = useDataLayerValue();
+  const [{ limit }, dispatch] = useDataLayerValue();
 
   const dispatchPlaylist = () => {
     dispatch({
@@ -61,6 +61,7 @@ function SidebarOption({ spotify, uri, title, Icon }) {
               userTracks: {
                 tracks: tracks,
                 runCheckedSongs: true,
+                name: "Your Library",
               },
             });
             dispatch({

@@ -1,7 +1,7 @@
 .banner {
   display: flex;
   align-items: flex-end;
-  padding: 10px;
+  padding: 30px;
 }
 
 .banner_text {
@@ -23,7 +23,8 @@
   font-size: 12px;
   margin: 2px 0px;
 }
-.banner > img {
+
+.banner_img {
   height: 20vh;
   border-radius: 3px;
   margin: 0 20px;
@@ -37,6 +38,7 @@
 .banner_small > strong {
   font-weight: 600;
 }
+
 .arrow_icons {
   display: flex;
   margin-top: 5px;

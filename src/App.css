@@ -1,6 +1,7 @@
 body {
   --music-color: #ff6ec0;
   --music-background-color: #6eeeff;
+  background-color: black;
 }
 
 .body::-webkit-scrollbar {
