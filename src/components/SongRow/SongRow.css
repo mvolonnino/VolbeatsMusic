@@ -113,7 +113,7 @@
 }
 
 .heart_song:active {
-  transition: transform 100ms ease-in-out;
+  transition: transform 200ms ease-in-out;
   transform: scale(1.5);
 }
 

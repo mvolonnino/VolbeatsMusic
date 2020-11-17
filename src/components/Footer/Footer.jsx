@@ -33,7 +33,7 @@ function Footer({ spotify }) {
   ] = useDataLayerValue();
   const [milliSeconds, setMilliSeconds] = useState(0);
   const [volume, setVolume] = useState(volumeLvl);
-  const [repeat, setRepeat] = useState(0);
+  const [repeat, setRepeat] = useState(1);
 
   useEffect(() => {
     setVolume(volumeLvl);
@@ -281,7 +281,11 @@ function Footer({ spotify }) {
         setMilliSeconds(value);
         valueToSeek = value;
       }
-      spotify.seek(valueToSeek, (err, res) => {});
+      spotify.seek(valueToSeek, (err, res) => {
+        if (err) {
+          console.log({ err });
+        }
+      });
     }
   };
 

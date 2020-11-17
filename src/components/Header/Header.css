@@ -5,6 +5,7 @@
   margin-bottom: 30px;
   position: sticky;
   top: 0;
+  transition: background-color 200ms ease-in-out;
 }
 
 .showHeader {
@@ -73,6 +74,7 @@ input:focus {
   align-items: center;
   transition: transform 200ms;
 }
+
 .avatar {
   padding: 2px;
   background-color: black;
@@ -83,4 +85,10 @@ input:focus {
   background-color: black;
   border-radius: 30px;
   transform: scale(1.08);
+}
+
+.showHeader > .header_right,
+.play_btn,
+.playlist_name {
+  padding-bottom: 12px;
 }

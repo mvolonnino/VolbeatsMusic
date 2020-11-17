@@ -46,16 +46,23 @@
   justify-content: space-evenly;
   align-items: center;
   position: sticky;
-  top: 100px;
+  top: 75px;
   background-color: #29585e;
-  transition: background-color 200ms ease-in-out;
+  transition: background-color 250ms ease-in-out;
   z-index: 100;
   margin-left: -5px;
+  border-bottom: 0.5px solid lightgray;
 }
 
 .sticky_table > .hash {
   margin-left: 40px;
 }
+
+.sticky_table > .duration {
+  padding-top: 5px;
+  padding-bottom: 2px;
+}
+
 .hash {
   margin-left: 35px;
   margin-right: 45px;

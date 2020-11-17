@@ -12,7 +12,6 @@ function Header({ parentPosition }) {
   const [hideSearch, setHideSearch] = useState(false);
 
   useEffect(() => {
-    console.log("HEADER TOP", { parentPosition });
     if (parentPosition > 80) {
       if (!hideSearch) {
         setHideSearch(true);
@@ -22,11 +21,11 @@ function Header({ parentPosition }) {
         setHideSearch(false);
       }
     }
-    if (parentPosition > 280) {
+    if (parentPosition > 300) {
       if (!showHeader) {
         setShowHeader(true);
       }
-    } else if (parentPosition <= 280) {
+    } else if (parentPosition <= 300) {
       if (showHeader) {
         setShowHeader(false);
       }

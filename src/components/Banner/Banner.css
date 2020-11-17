@@ -26,6 +26,7 @@
 
 .banner_img {
   height: 20vh;
+  max-height: 200px;
   border-radius: 3px;
   margin: 0 20px;
   box-shadow: 0 4px 60px rgba(0, 0, 0, 0.625);

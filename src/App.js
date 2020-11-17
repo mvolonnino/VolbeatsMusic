@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const hash = getTokenFromUrl();
     const _token = hash.access_token;
-    window.location.hash = "";
+    window.location.hash = "logged-in";
 
     if (_token) {
       spotify.setAccessToken(_token);

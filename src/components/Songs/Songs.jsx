@@ -11,7 +11,10 @@ import { useDataLayerValue } from "../../context/DataLayer";
 import SongRow from "../SongRow/SongRow";
 
 function Songs({ spotify, parentPosition }) {
-  const [{ choosenPlaylist, song, token }, dispatch] = useDataLayerValue();
+  const [
+    { choosenPlaylist, song, token, myDevices },
+    dispatch,
+  ] = useDataLayerValue();
   const [likedArray, setLikedArray] = useState([]);
   const [stickyTable, setStickyTable] = useState(false);
 
@@ -35,6 +38,7 @@ function Songs({ spotify, parentPosition }) {
       }
     }
   }
+
   const setShuffleSong = () => {
     var songs = choosenPlaylist?.tracks?.items?.map((item) => item);
     var songIndex = Math.floor(Math.random() * songs?.length);
@@ -56,6 +60,7 @@ function Songs({ spotify, parentPosition }) {
     spotify
       .play({
         uris: [`spotify:track:${id}`],
+        device_id: [myDevices[0].id],
       })
       .then(() => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
@@ -117,11 +122,11 @@ function Songs({ spotify, parentPosition }) {
   };
 
   useEffect(() => {
-    if (parentPosition > 410) {
+    if (parentPosition > 350) {
       if (!stickyTable) {
         setStickyTable(true);
       }
-    } else if (parentPosition <= 410) {
+    } else if (parentPosition <= 350) {
       if (stickyTable) {
         setStickyTable(false);
       }
