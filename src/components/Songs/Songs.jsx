@@ -62,10 +62,10 @@ function Songs({ spotify, parentPosition }) {
         uris: [`spotify:track:${id}`],
         device_id: [myDevices[0].id],
       })
-      .then(() => {
+      .then((res) => {
         spotify.getMyCurrentPlayingTrack().then((r) => {
           console.log({ r });
-          if (r.is_playing) {
+          if (r.is_playing || r.progress_ms > 0) {
             dispatch({
               type: "SET_PLAYING",
               playing: true,

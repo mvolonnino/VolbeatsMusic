@@ -4,7 +4,7 @@ export default function useScrollBarPosition() {
   const [top, setTop] = useState(0);
   const ref = useRef();
 
-  console.log("TOP", { top });
+  // console.log("TOP", { top });
 
   useLayoutEffect(() => {
     function getTopPosition() {
